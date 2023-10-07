@@ -7,11 +7,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <math.h>
 
 #include "mpi.h"
 
 /* ******************************************************* */
-/*                      SUPPORT FUNCTION
+/*                      SUPPORT FUNCTION                   */
 /* ******************************************************* */
 
 static void fill_array_randomly(int *elements, int N);
@@ -19,6 +20,14 @@ static void fill_array_randomly(int *elements, int N);
 static void fill_array_by_argv(int *elements, int N, char *argv[]);
 
 /* ******************************************************* */
+
+extern int menum;
+extern int nproc;
+extern int tag;
+extern int sumparz;
+extern MPI_Status status;
+extern int sum;
+extern int logNproc;
 
 int strategy_is_valid(int strategy){
     if(strategy < 1 && strategy > 3)
@@ -56,7 +65,7 @@ void fill_array_by_argv(int *elements, int N, char *argv[]){
 
 void first_strategy(){
     if(menum == 0){
-        for(i=1; i<nproc; i++){
+        for(int i=1; i<nproc; i++){
             tag = 80+i;
             MPI_Recv(&sumparz, 1, MPI_INT, i, tag, MPI_COMM_WORLD, &status);
             sum = sum+sumparz;
@@ -68,7 +77,7 @@ void first_strategy(){
 }
 
 void second_strategy(){
-    for(i=0; i<logNproc; i++){
+    for(int i=0; i<logNproc; i++){
         int partner = menum ^ (1 << i); // Calcola il processo partner
 
         if (menum < partner) {
@@ -97,7 +106,7 @@ void second_strategy(){
 }
 
 void third_strategy(){
-    for(i=0; i<logNproc; i++){
+    for(int i=0; i<logNproc; i++){
         int partner;
 
         if ((menum % (int)pow(2, i + 1)) < (1 << i)) {
