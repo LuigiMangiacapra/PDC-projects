@@ -31,8 +31,6 @@ int main(int argc, char *argv[]){
     int *xloc;
     MPI_Status status;
     int sumparz;
-
-    int N;                  // numero di elementi che dovra' contenere l'array
     int strategy;           // strategia con cui sommare 
     int *elements;          // array completo
 
@@ -75,7 +73,7 @@ int main(int argc, char *argv[]){
     }
 
     // MPI initialization
-    MPI_Init(&argv, &argc);
+    MPI_Init(&argc, &argv);
     MPI_Comm_rank(MPI_COMM_WORLD, &menum);
     MPI_Comm_size(MPI_COMM_WORLD, &nproc);
 
@@ -111,7 +109,7 @@ int main(int argc, char *argv[]){
         if(menum == 0)
             printf("\nSomma totale = %d\n", sum);
     }else{
-        printf("\nSono il processo %d: e la somma totale= %d\n", menum, sum)
+        printf("\nSono il processo %d: e la somma totale= %d\n", menum, sum);
     }
 
     // freeing memory before program termination 
