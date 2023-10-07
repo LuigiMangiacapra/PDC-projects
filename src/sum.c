@@ -11,21 +11,42 @@ int main(int argc, char *argv[]){
     MPI_Status status;
     int sumparz;
     int logNproc;
+    int randomNumber;
+    int *elements;
 
     //Parte argv e argc
     N = atoi(argv[1]);
     strategia = atoi(argv[2]);
 
+    if (N <= 0 || strategia < 1 || strategia > 3) {
+        printf("Valori in input non validi.\n");
+        return 1;
+    }
+
+    srand(time(NULL));
+
     if(N <= 20){
-        //prendere in input i numeri fino ad N
+        elements = (int *)malloc(N * sizeof(int));
+        if (elements == NULL) {
+            printf("Errore nell'allocazione della memoria per elements.\n");
+            return 1;
+        }
+        for (int i = 0; i < N; i++) {
+            elements[i] = atoi(argv[i + 3]); // Argv[0] è il nome del programma, quindi iniziamo da argv[3].
+        }
     }else{
-        //Generare N numeri random interi
+        elements = (int *)malloc(N * sizeof(int));
+        if (elements == NULL) {
+            printf("Errore nell'allocazione della memoria per elements.\n");
+            return 1;
+        }
+        for (int i = 0; i < N; i++) {
+            elements[i] = rand(); // Genera numeri casuali.
+        }
     }
 
     if((strategia == 2 || strategia == 3) && ((N & (N-1)) != 0)){
         strategia = 1;
-    }else if(strategia > 3){
-        return 0;
     }
 
     if(strategia == 2 || strategia == 3){
