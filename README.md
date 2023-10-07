@@ -3,6 +3,6 @@ This repository contains the assignments for the course "**Parallel and Distribu
 Each folder contains a different assignement with its source code and documentation.
 
 This project was developed by:
-- Fabrio Vitale
+- Fabrizio Vitale
 - Giovanni Falcone
 - Luigi Mangiacapra
