@@ -21,13 +21,13 @@ static void fill_array_by_argv(int *elements, int N, char *argv[]);
 
 /* ******************************************************* */
 
-extern int menum;
-extern int nproc;
-extern int tag;
-extern int sumparz;
-extern MPI_Status status;
-extern int sum;
-extern int logNproc;
+int menum;
+int nproc;
+int tag;
+int sumparz;
+MPI_Status status;
+int sum;
+int logNproc;
 
 int strategy_is_valid(int strategy){
     if(strategy < 1 && strategy > 3)

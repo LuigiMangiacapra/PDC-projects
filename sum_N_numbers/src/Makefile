@@ -1,6 +1,7 @@
 # Variabili
 CC = mpicc
 CFLAGS = -Wall -g
+LDFLAGS = -lm  # Aggiungi l'opzione -lm per collegare la libreria matematica
 
 # Nome dell'eseguibile
 TARGET = my_mpi_program
@@ -13,7 +14,7 @@ all: $(TARGET)
 
 # Regola per la creazione dell'eseguibile
 $(TARGET): $(OBJECTS)
-	$(CC) $(CFLAGS) -o $(TARGET) $(OBJECTS)
+	$(CC) $(CFLAGS) -o $(TARGET) $(OBJECTS) $(LDFLAGS)
 
 # Regola per la compilazione di main.c
 main.o: main.c

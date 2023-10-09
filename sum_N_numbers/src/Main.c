@@ -26,11 +26,9 @@ static int check_if_inputs_are_valid(int argc, int N, int strategy);
 
 int main(int argc, char *argv[]){
     int menum, nproc, tag, i;
-    int n, nloc, N, strategia, sum, logNproc, randomNumber;
-    int *x;
+    int n, N, sum, logNproc;
     int *xloc;
     MPI_Status status;
-    int sumparz;
     int strategy;           // strategia con cui sommare 
     int *elements;          // array completo
 
@@ -114,7 +112,8 @@ int main(int argc, char *argv[]){
 
     // freeing memory before program termination 
     free(elements);
-
+    MPI_Finalize();
+    
     return 0;
 }
 
