@@ -80,14 +80,17 @@ int main(int argc, char *argv[]){
             printf("Inserimento dei numeri forniti da terminale...\n");
 
             for(int i = 0; i < N; i++){
-                elements[i] = 1;
+                elements[i] = 1; //da rimuovere !!!
                 //elements[i] = atoi(argv[i + 3]);    // 0: name src; 1: N; 2: strategy; starting from 3 we have all numbers
             }
         }
+
         // show array
+        /*
         for(int i = 0; i < N; i++)
             printf("%d ", elements[i]);
         printf("\n");
+        */
     }
 
     nloc=N / nproc;
@@ -161,6 +164,7 @@ int main(int argc, char *argv[]){
 
     // check the strategy to apply
     if(strategy == 1){
+        printf("uso la strategia 1\n");
         if(menum == 0){
             for(int i=1; i<nproc; i++){
                 tag = 80+i;
@@ -172,23 +176,70 @@ int main(int argc, char *argv[]){
             MPI_Send(&sum, 1, MPI_INT, 0, tag, MPI_COMM_WORLD);
         }
     }
-    else if(strategy == 2){
-    }
-        //second_strategy();
-    else{}
-        //third_strategy();
+    else if(strategy == 2){ //second_strategy
+        printf("uso la strategia 2\n");
+        for(int i=0; i<logNproc; i++){
+            int partner;
+
+            if ((menum % (int)pow(2, i + 1)) < (1 << i)) {
+                partner = menum + (1 << i);
+                tag = 60 + i;
+
+                // Ricevi da menum + 2^i
+                MPI_Recv(&sumparz, 1, MPI_INT, partner, tag, MPI_COMM_WORLD, &status);
+                sum += sumparz;
+            } else {
+                partner = menum - (1 << i);
+                tag = 60 + i;
+
+                // Invia a menum - 2^i
+                MPI_Send(&sum, 1, MPI_INT, partner, tag, MPI_COMM_WORLD);
+            }
+        }
+    } else{ //third_strategy
+        printf("uso la strategia 3\n");
+        for(int i=0; i<logNproc; i++){
+            int partner = menum ^ (1 << i); // Calcola il processo partner
+
+            if (menum < partner) {
+                int send_tag = 40 + i;
+                int recv_tag = 40 + i;
+
+                // Invia la somma locale al processo partner
+                MPI_Send(&sum, 1, MPI_INT, partner, send_tag, MPI_COMM_WORLD);
+
+                // Ricevi la somma del processo partner
+                MPI_Recv(&sumparz, 1, MPI_INT, partner, recv_tag, MPI_COMM_WORLD, &status);
+
+                // Aggiorna la variabile 'sum' con la somma ricevuta
+                sum += sumparz;
+            } else {
+                int send_tag = 40 + i;
+                int recv_tag = 40 + i;
+
+                // Ricevi la somma dal processo partner
+                MPI_Recv(&sumparz, 1, MPI_INT, partner, recv_tag, MPI_COMM_WORLD, &status);
+
+                // Invia la somma locale al processo partner
+                MPI_Send(&sum, 1, MPI_INT, partner, send_tag, MPI_COMM_WORLD);
+                sum += sumparz; 
+            }
+        }
+    }    
 
     // print result
     if(strategy == 1){
         if(menum == 0)
             printf("\nSomma totale = %d\n", sum);
     }else{
-        printf("\nSono il processo %d: e la somma totale= %d\n", menum, sum);
+        printf("\nSono il processo %d: e la somma totale = %d\n", menum, sum);
     }
+
 
     // freeing memory before program termination
     if(menum == 0){ 
         free(elements);
+        free(values);
     }else{
         free(values);
     }
