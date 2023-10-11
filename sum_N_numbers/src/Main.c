@@ -21,6 +21,7 @@
  * @param strategy the strategy to apply
 */
 static int check_if_inputs_are_valid(int argc, int N, int strategy);
+int strategy_is_valid(int strategy);
 
 /****************************************************/
 
@@ -135,3 +136,20 @@ static int check_if_inputs_are_valid(int argc, int N, int strategy){
 
     return 0; // valid input
 }
+
+int strategy_is_valid(int strategy){
+    if(strategy < 1 && strategy > 3)
+        return EXIT_FAILURE;
+
+    // it's valid 
+    return 0;
+}
+
+/*
+Da risolvere:
+-solo menum==0 deve avere tutti i dati
+-capire come effettuare il passaggio utilizando xloc
+-elements è diverso da n e viene distribuito n
+-strategia 2 e 3 sono invertite?
+-vengono creati file con backtrace
+*/
