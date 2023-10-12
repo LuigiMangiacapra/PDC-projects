@@ -117,19 +117,15 @@ int main(int argc, char *argv[]){
     //il processo 0 invia a tutti gli altri processi il valore con tag 10+i
     j=0;
     if(menum == 0){
-        for(i=0; i < N; i++){
-            if(i%nproc == 0){
+        for(i=0, j=0; i < N; i += nproc){
                 values[j] = elements[i];
                 j++;
-            }
         }
 
         for(i=1; i<nproc; i++){
-            for(j=0;j<N;j++){
-                tag = 10 + i;
-                if(j%nproc == i){
-                    MPI_Send(&elements[j], 1, MPI_INT, i, tag, MPI_COMM_WORLD);
-                }
+            tag= 10+i;
+            for(j=0; j<N; j += nproc){
+                MPI_Send(&elements[j], 1, MPI_INT, i, tag, MPI_COMM_WORLD); 
             }
         }
         //}
