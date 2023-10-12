@@ -27,7 +27,7 @@ int strategy_is_valid(int strategy);
 /****************************************************/
 
 int main(int argc, char *argv[]){
-    int menum, nproc, tag, i;
+    int menum, nproc, tag;
     int n, N, sum, logNproc;
     int *values;
     MPI_Status status;
@@ -35,8 +35,7 @@ int main(int argc, char *argv[]){
     int *elements;          // array completo
     int nloc, rest;
     int sumparz=0;
-    int j=0;
-    int start;
+    int j=0, i;
 
     // MPI initialization
     MPI_Init(&argc, &argv);
@@ -104,7 +103,7 @@ int main(int argc, char *argv[]){
     
     //Seleziona la strategia a seconda se il numero di elementi è potenza di 2, 
     // se lo e' seleziona la strategia sceltaa se sono la 2 o la 3 altrimenti passa alla 1
-    if((strategy == 2 || strategy == 3) && ((N & (N - 1)) != 0)){
+    if((strategy == 2 || strategy == 3) && ((nproc & (nproc - 1)) != 0)){
         strategy = 1;
     }
 
