@@ -37,11 +37,6 @@ int main(int argc, char *argv[]){
     int sumparz=0;
     int j=0, i;
 
-    // MPI initialization
-    MPI_Init(&argc, &argv);
-    MPI_Comm_rank(MPI_COMM_WORLD, &menum);
-    MPI_Comm_size(MPI_COMM_WORLD, &nproc);
-
     if(argc < 3){
         fprintf(stderr, "Utilizzo: <numeri da sommare> <tipo di strategia> <numeri da sommare se N>\n");
         return EXIT_FAILURE;
@@ -50,6 +45,11 @@ int main(int argc, char *argv[]){
     // convert to integer the number to sum and strategy to apply
     N = atoi(argv[1]);
     strategy = atoi(argv[2]);
+
+    // MPI initialization
+    MPI_Init(&argc, &argv);
+    MPI_Comm_rank(MPI_COMM_WORLD, &menum);
+    MPI_Comm_size(MPI_COMM_WORLD, &nproc);
 
     //if(check_if_inputs_are_valid(argc, N, strategy) != 0)
       //  return EXIT_FAILURE;
