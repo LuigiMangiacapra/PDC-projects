@@ -36,6 +36,8 @@ int main(int argc, char *argv[]){
     int nloc, rest;
     int sumparz=0;
     int j=0, i;
+    double t1, t0, timeP;
+    double timetot = 0;
 
     if(argc < 3){
         fprintf(stderr, "Utilizzo: <numeri da sommare> <tipo di strategia> <numeri da sommare se N>\n");
@@ -83,13 +85,6 @@ int main(int argc, char *argv[]){
                 //elements[i] = atoi(argv[i + 3]);    // 0: name src; 1: N; 2: strategy; starting from 3 we have all numbers
             }
         }
-
-        // show array
-        /*
-        for(int i = 0; i < N; i++)
-            printf("%d ", elements[i]);
-        printf("\n");
-        */
     }
 
     nloc=N / nproc;
@@ -99,7 +94,6 @@ int main(int argc, char *argv[]){
         nloc=nloc+1;
     }
     values = (int *)malloc(sizeof(int) * nloc);
-    
     
     //Seleziona la strategia a seconda se il numero di elementi è potenza di 2, 
     // se lo e' seleziona la strategia sceltaa se sono la 2 o la 3 altrimenti passa alla 1
@@ -126,23 +120,7 @@ int main(int argc, char *argv[]){
             for(j=0; j<N; j += nproc){
                 MPI_Send(&elements[j], 1, MPI_INT, i, tag, MPI_COMM_WORLD); 
             }
-        }
-        //}
-        /*
-        int tmp = nloc;
-        start = 0;
-        
-        for(i = 1; i < nproc; i++){
-            start= start+tmp;
-            tag = 10 + i;
-            if(i == rest){
-                tmp = tmp - 1;
-            }
-            printf("elemento: : : %d\t start è :: %d\n", elements[start], start);
-            MPI_Send(&elements[start], tmp, MPI_INT, i, tag, MPI_COMM_WORLD);
-        }
-        */
-        
+        }        
     }else{ //gli altri processi ricevono il valofore dal processo 0 con tag 10+numero_processo
         while(j<nloc){
             tag = 10 + menum;
@@ -152,6 +130,8 @@ int main(int argc, char *argv[]){
         }
     }
     
+    MPI_Barrier(MPI_COMM_WORLD);
+    t0 = MPI_Wtime();
     sum = 0;
     for(i = 0; i < nloc; i++){
         sum = sum + values[i];
@@ -159,7 +139,6 @@ int main(int argc, char *argv[]){
 
     // check the strategy to apply
     if(strategy == 1){
-        printf("uso la strategia 1\n");
         if(menum == 0){
             for(int i=1; i<nproc; i++){
                 tag = 80+i;
@@ -170,9 +149,9 @@ int main(int argc, char *argv[]){
             tag = menum+80;
             MPI_Send(&sum, 1, MPI_INT, 0, tag, MPI_COMM_WORLD);
         }
+        t1 = MPI_Wtime();
     }
     else if(strategy == 2){ //second_strategy
-        printf("uso la strategia 2\n");
         for(int i=0; i<logNproc; i++){
             int partner;
 
@@ -190,9 +169,9 @@ int main(int argc, char *argv[]){
                 // Invia a menum - 2^i
                 MPI_Send(&sum, 1, MPI_INT, partner, tag, MPI_COMM_WORLD);
             }
+            t1 = MPI_Wtime();
         }
     } else{ //third_strategy
-        printf("uso la strategia 3\n");
         for(int i=0; i<logNproc; i++){
             int partner = menum ^ (1 << i); // Calcola il processo partner
 
@@ -219,17 +198,26 @@ int main(int argc, char *argv[]){
                 MPI_Send(&sum, 1, MPI_INT, partner, send_tag, MPI_COMM_WORLD);
                 sum += sumparz; 
             }
+            t1 = MPI_Wtime();
         }
-    }    
+    }
+
+    timeP = t1 - t0;
+    printf("Il tempo impiegato da %d è di %e s\n", menum, timeP);
+
+    MPI_Reduce(&timeP, &timetot, 1, MPI_DOUBLE, MPI_MAX, 0, MPI_COMM_WORLD);    
 
     // print result
     if(strategy == 1){
-        if(menum == 0)
+        if(menum == 0){
             printf("\nSomma totale = %d\n", sum);
+            printf("Tempo totale impiegato per l'algoritmo %e\n", timetot);
+        }
     }else{
         printf("\nSono il processo %d: e la somma totale = %d\n", menum, sum);
+        if(menum == 0)
+            printf("Tempo totale impiegato per l'algoritmo %e\n", timetot);
     }
-
 
     // freeing memory before program termination
     if(menum == 0){ 
@@ -242,26 +230,6 @@ int main(int argc, char *argv[]){
     
     return 0;
 }
-
-/*static int check_if_inputs_are_valid(int argc, int N, int strategy){
-    if(N <= 20 && argc - 3 != N && strategy_is_valid(strategy) == 0){
-        fprintf(stderr, "Il numero di elementi inserito non corrisponde ad N!\n");
-        return EXIT_FAILURE;
-    }
-
-    if(N <= 0){
-        fprintf(stderr, "Inserire un numero maggiore di 0!\n");
-        return EXIT_FAILURE;
-    }
-
-    if(strategy_is_valid(strategy) != 0){
-        fprintf(stderr, "La strategia deve essere un valore compreso tra 1 e 3!\n");
-        return EXIT_FAILURE;
-    }
-
-    return 0; // valid input
-}*/
-
 
 int strategy_is_valid(int strategy){
     if(strategy < 1 && strategy > 3)
