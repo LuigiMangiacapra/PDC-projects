@@ -51,14 +51,7 @@ int main(int argc, char *argv[]){
     // MPI initialization
     MPI_Init(&argc, &argv);
     MPI_Comm_rank(MPI_COMM_WORLD, &menum);
-    MPI_Comm_size(MPI_COMM_WORLD, &nproc);
-
-    //if(check_if_inputs_are_valid(argc, N, strategy) != 0)
-      //  return EXIT_FAILURE;
-
-    // fill array
-    //get_numbers(elements, N, argv);
- 
+    MPI_Comm_size(MPI_COMM_WORLD, &nproc); 
     
     if(menum == 0){
         // array malloc
@@ -97,7 +90,7 @@ int main(int argc, char *argv[]){
     
     //Seleziona la strategia a seconda se il numero di elementi è potenza di 2, 
     // se lo e' seleziona la strategia sceltaa se sono la 2 o la 3 altrimenti passa alla 1
-    if((strategy == 2 || strategy == 3) && ((nproc & (nproc - 1)) != 0)){
+    if(((strategy == 2 || strategy == 3) && ((nproc & (nproc - 1)) != 0)) || (nproc == 1)){
         strategy = 1;
     }
 
@@ -150,8 +143,7 @@ int main(int argc, char *argv[]){
             MPI_Send(&sum, 1, MPI_INT, 0, tag, MPI_COMM_WORLD);
         }
         t1 = MPI_Wtime();
-    }
-    else if(strategy == 2){ //second_strategy
+    }else if(strategy == 2){ //second_strategy
         for(int i=0; i<logNproc; i++){
             int partner;
 
@@ -169,8 +161,8 @@ int main(int argc, char *argv[]){
                 // Invia a menum - 2^i
                 MPI_Send(&sum, 1, MPI_INT, partner, tag, MPI_COMM_WORLD);
             }
-            t1 = MPI_Wtime();
         }
+        t1 = MPI_Wtime();
     } else{ //third_strategy
         for(int i=0; i<logNproc; i++){
             int partner = menum ^ (1 << i); // Calcola il processo partner
@@ -198,8 +190,8 @@ int main(int argc, char *argv[]){
                 MPI_Send(&sum, 1, MPI_INT, partner, send_tag, MPI_COMM_WORLD);
                 sum += sumparz; 
             }
-            t1 = MPI_Wtime();
         }
+        t1 = MPI_Wtime();
     }
 
     timeP = t1 - t0;
@@ -214,7 +206,7 @@ int main(int argc, char *argv[]){
             printf("Tempo totale impiegato per l'algoritmo %e\n", timetot);
         }
     }else{
-        printf("\nSono il processo %d: e la somma totale = %d\n", menum, sum);
+        printf("\nSono il processo %d e la somma totale = %d\n", menum, sum);
         if(menum == 0)
             printf("Tempo totale impiegato per l'algoritmo %e\n", timetot);
     }
