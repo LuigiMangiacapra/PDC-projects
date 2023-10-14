@@ -66,8 +66,7 @@ int main(int argc, char *argv[]){
             printf("Generazione numeri randomici...\n");
 
             for(int i = 0; i < N; i++){
-                elements[i] = rand() % 100;
-                printf("Element %d: %d\n", i, elements[i]);
+                elements[i] = (int)rand()%1000;
             }
         }
         else{
