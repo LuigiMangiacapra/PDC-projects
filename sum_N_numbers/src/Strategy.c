@@ -11,16 +11,6 @@
 
 #include "mpi.h"
 
-/* ******************************************************* */
-/*                      SUPPORT FUNCTION                   */
-/* ******************************************************* */
-
-static void fill_array_randomly(int *elements, int N);
-
-static void fill_array_by_argv(int *elements, int N, char *argv[]);
-
-/* ******************************************************* */
-
 int menum;
 int nproc;
 int tag;
@@ -29,39 +19,7 @@ MPI_Status status;
 int sum;
 int logNproc;
 
-int strategy_is_valid(int strategy){
-    if(strategy < 1 && strategy > 3)
-        return EXIT_FAILURE;
 
-    // it's valid 
-    return 0;
-}
-
-void get_numbers(int *elements, int N, char *argv[]){
-    if(N > 20)
-        fill_array_randomly(elements, N);
-    else
-        fill_array_by_argv(elements, N, argv);
-}
-
-void fill_array_randomly(int *elements, int N){
-    srand(time(NULL));
-
-    printf("Generazione numeri randomici...\n");
-
-    for(int i = 0; i < N; i++){
-        elements[i] = rand() % 100;
-        printf("Element %d: %d\n", i, elements[i]);
-    }
-}
-
-void fill_array_by_argv(int *elements, int N, char *argv[]){
-    printf("Inserimento dei numeri forniti da terminale...\n");
-
-    for(int i = 0; i < N; i++){
-        elements[i] = atoi(argv[i + 3]);    // 0: name src; 1: N; 2: strategy; starting from 3 we have all numbers
-    }
-}
 
 void first_strategy(){
     if(menum == 0){

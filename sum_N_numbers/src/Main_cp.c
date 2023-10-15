@@ -27,17 +27,23 @@ int strategy_is_valid(int strategy);
 /****************************************************/
 
 int main(int argc, char *argv[]){
-    int menum, nproc, tag;
-    int n, N, sum, logNproc;
-    int *values;
-    MPI_Status status;
+    int menum;              // id del processore
+    int nproc;              // numero processori
+    int tag;                // identificativo del messaggio
+    int n;                  // singolo elemento ricevuto dal processore 0
+    int N;                  // numero di elementi da sommare
+    int sum;                // somma totale da stampare
+    int logNproc;           // numero di passi da effettuare per la II, III strategia
+    int *values;            // vettore di elementi locale
     int strategy;           // strategia con cui sommare 
     int *elements;          // array completo
-    int nloc, rest;
-    int sumparz=0;
-    int j=0, i;
-    double t1, t0, timeP;
+    int nloc;               // numero di elementi che ciascun processore deve sommare
+    int rest;               // resto della divisione 
+    int sumparz = 0;        // somma parziale di ciascun processo
+    double end_time;
+    double start_time;
     double timetot = 0;
+    MPI_Status status;      // per chiamate bloccanti
 
     if(argc < 3){
         fprintf(stderr, "Utilizzo: <numeri da sommare> <tipo di strategia> <numeri da sommare se N>\n");
@@ -66,24 +72,23 @@ int main(int argc, char *argv[]){
             printf("Generazione numeri randomici...\n");
 
             for(int i = 0; i < N; i++){
-                elements[i] = (int)rand()%1000;
+                elements[i] = 1; //(int)rand()%1000;
             }
         }
         else{
             printf("Inserimento dei numeri forniti da terminale...\n");
 
             for(int i = 0; i < N; i++){
-                elements[i] = 1; //da rimuovere !!!
-                //elements[i] = atoi(argv[i + 3]);    // 0: name src; 1: N; 2: strategy; starting from 3 we have all numbers
+                elements[i] = atoi(argv[i + 3]);    // 0: name src; 1: N; 2: strategy; starting from 3 we have all numbers
             }
         }
     }
 
-    nloc=N / nproc;
-    rest=N % nproc;
+    nloc = N / nproc;
+    rest = N % nproc;
 
-    if(menum<rest){
-        nloc=nloc+1;
+    if(menum < rest){
+        nloc = nloc + 1;
     }
     values = (int *)malloc(sizeof(int) * nloc);
     
@@ -100,21 +105,21 @@ int main(int argc, char *argv[]){
 
     // fare funzione esterna
     //il processo 0 invia a tutti gli altri processi il valore con tag 10+i
-    j=0;
+    int j = 0;
     if(menum == 0){
-        for(i=0, j=0; i < N; i += nproc){
+        for(i = 0, j = 0; i < N; i += nproc){
                 values[j] = elements[i];
                 j++;
         }
 
-        for(i=1; i<nproc; i++){
-            tag= 10+i;
-            for(j=0; j<N; j += nproc){
+        for(i = 1; i < nproc; i++){
+            tag = 10 + i;
+            for(j = 0; j < N; j += nproc){
                 MPI_Send(&elements[j], 1, MPI_INT, i, tag, MPI_COMM_WORLD); 
             }
         }        
     }else{ //gli altri processi ricevono il valofore dal processo 0 con tag 10+numero_processo
-        while(j<nloc){
+        while(j < nloc){
             tag = 10 + menum;
             MPI_Recv(&n, nloc, MPI_INT, 0, tag, MPI_COMM_WORLD, &status);
             values[j] = n;
@@ -123,7 +128,7 @@ int main(int argc, char *argv[]){
     }
     
     MPI_Barrier(MPI_COMM_WORLD);
-    t0 = MPI_Wtime();
+    start_time = MPI_Wtime();
     sum = 0;
     for(i = 0; i < nloc; i++){
         sum = sum + values[i];
@@ -132,18 +137,18 @@ int main(int argc, char *argv[]){
     // check the strategy to apply
     if(strategy == 1){
         if(menum == 0){
-            for(int i=1; i<nproc; i++){
-                tag = 80+i;
+            for(int i = 1; i < nproc; i++){
+                tag = 80 + i;
                 MPI_Recv(&sumparz, 1, MPI_INT, i, tag, MPI_COMM_WORLD, &status);
                 sum = sum+sumparz;
             }
         }else{
-            tag = menum+80;
+            tag = menum + 80;
             MPI_Send(&sum, 1, MPI_INT, 0, tag, MPI_COMM_WORLD);
         }
-        t1 = MPI_Wtime();
+        end_time = MPI_Wtime();
     }else if(strategy == 2){ //second_strategy
-        for(int i=0; i<logNproc; i++){
+        for(int i = 0; i < logNproc; i++){
             int partner;
 
             if ((menum % (int)pow(2, i + 1)) < (1 << i)) {
@@ -161,9 +166,9 @@ int main(int argc, char *argv[]){
                 MPI_Send(&sum, 1, MPI_INT, partner, tag, MPI_COMM_WORLD);
             }
         }
-        t1 = MPI_Wtime();
-    } else{ //third_strategy
-        for(int i=0; i<logNproc; i++){
+        end_time = MPI_Wtime();
+    } else{ // third_strategy
+        for(int i = 0; i < logNproc; i++){
             int partner = menum ^ (1 << i); // Calcola il processo partner
 
             if (menum < partner) {
@@ -190,11 +195,10 @@ int main(int argc, char *argv[]){
                 sum += sumparz; 
             }
         }
-        t1 = MPI_Wtime();
+        end_time = MPI_Wtime();
     }
 
-    timeP = t1 - t0;
-    printf("Il tempo impiegato da %d è di %e s\n", menum, timeP);
+    printf("Il tempo impiegato da %d è di %e s\n", menum, end_time - start_time);
 
     MPI_Reduce(&timeP, &timetot, 1, MPI_DOUBLE, MPI_MAX, 0, MPI_COMM_WORLD);    
 

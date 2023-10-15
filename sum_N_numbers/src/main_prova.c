@@ -10,20 +10,11 @@
 
 #include "mpi.h"
 #include "Strategy.h"
+#include "Utils.h"
 
-// Support function
-
-/**
- * @brief check if the inpurs are correct in order to sum
- * 
- * @param argc number of parameters
- * @param N number of elements to sum
- * @param strategy the strategy to apply
-*/
-static int check_if_inputs_are_valid(int argc, int N, int strategy);
-int strategy_is_valid(int strategy);
-
-/****************************************************/
+# define STRATEGY_1 1
+# define STRATEGY_2 2
+# define STRATEGY_3 3
 
 int main(int argc, char *argv[]){
     int menum;              // id del processore
@@ -48,16 +39,16 @@ int main(int argc, char *argv[]){
         return EXIT_FAILURE;
     }
 
-    // convert to integer the number to sum and strategy to apply
-    N = atoi(argv[1]);
-    strategy = atoi(argv[2]);
-
     // MPI initialization
     MPI_Init(&argc, &argv);
     MPI_Comm_rank(MPI_COMM_WORLD, &menum);
     MPI_Comm_size(MPI_COMM_WORLD, &nproc);
 
     if(menum == 0){
+        // convert to integer the number to sum and strategy to apply
+        N = atoi(argv[1]);
+        strategy = atoi(argv[2]);
+
         if(check_if_inputs_are_valid(argc, N, strategy) != 0)
         return EXIT_FAILURE;
 
@@ -67,20 +58,20 @@ int main(int argc, char *argv[]){
             fprintf(stderr, "Errore nell'allocazione della memoria per l'array 'elements'!\n");
             return EXIT_FAILURE;
         }
+
         fill_array(elements, N, argv);
 
-        // Seleziona la strategia a seconda se il numero di elementi è potenza di 2, 
-        // se lo e' seleziona la strategia sceltaa se sono la 2 o la 3 altrimenti passa alla 1
-        if(((strategy == 2 || strategy == 3) && ((nproc & (nproc - 1)) != 0)) || (nproc == 1)){
-            strategy = 1;
-        }
-
-        //per risparmiare tempo computazionale
-        if(strategy == 2 || strategy == 3){
-            logNproc = log2(nproc); 
-        }
+        // Verifica se la strategia 2 (o 3) è applicabile: se il numero dei processori non è potenza di 2 applica la strategia 1
+        if(!strategy_2_OR_3_are_applicable(strategy, nproc))
+            strategy = STRATEGY_1;
     }
     MPI_Bcast(&N, 1, MPI_INT, 0, MPI_COMM_WORLD);
+    MPI_Bcast(&strategy, 1, MPI_INT, 0, MPI_COMM_WORLD);
+
+    //per risparmiare tempo computazionale
+    if(strategy == 2 || strategy == 3){
+        logNproc = log2(nproc); 
+    }
 
     nloc = N / nproc;
     rest = N % nproc;
@@ -88,38 +79,49 @@ int main(int argc, char *argv[]){
     if(menum < rest){
         nloc = nloc + 1;
     }
-    elements_loc = (int *)malloc(sizeof(int) * nloc);
 
+    elements_loc = (int *)malloc(sizeof(int) * nloc);
+    if(elements_loc == NULL){
+        fprintf(stderr, "Errore nell'allocazione della memoria per l'array 'elements'!\n");
+        return EXIT_FAILURE;
+    }
+    
     // invia elementi da sommare agli altri processori
     if(menum == 0){
-        for(int i = 0; i < N; i++){
+        for(int i = 0; i < nloc; i++){
             elements_loc[i] = elements[i];
         }
 
         int tmp = nloc;
         int start = 0;
-        for(int i = 0; i < nproc; i++){
+        for(int i = 1; i < nproc; i++){
             start += tmp;
             tag = 22 + i;
-            if(i == rest)
-                tmp -= 1;
+            if(i == rest) tmp -= 1;
+            
             MPI_Send(&elements[start], tmp, MPI_INT, i, tag, MPI_COMM_WORLD);
         }
     } else {
         tag = 22 + menum;
         MPI_Recv(elements_loc, nloc, MPI_INT, 0, tag, MPI_COMM_WORLD, &status);
     }
-    
+
     // attendiamo che i processi si sincronizzino
     MPI_Barrier(MPI_COMM_WORLD);
     start_time = MPI_Wtime();
+
     sum = 0;
+    int nsum = 0;
     for(int i = 0; i < nloc; i++){
         sum = sum + elements_loc[i];
+        nsum += 1;
     }
 
+    nsum --;
+    printf("Sono %d e ho fatto %d addizioni locali.\n", menum, nsum);
+
     // check the strategy to apply
-    if(strategy == 1){
+    if(strategy == STRATEGY_1){
         if(menum == 0){
             for(int i = 1; i < nproc; i++){
                 tag = 80 + i;
@@ -131,31 +133,33 @@ int main(int argc, char *argv[]){
             MPI_Send(&sum, 1, MPI_INT, 0, tag, MPI_COMM_WORLD);
         }
         end_time = MPI_Wtime();
-    }else if(strategy == 2){ //second_strategy
+    }else if(strategy == STRATEGY_2){ 
         for(int i = 0; i < logNproc; i++){
             int partner;
-
-            if ((menum % (int)pow(2, i + 1)) < (1 << i)) {
-                partner = menum + (1 << i);
-                tag = 60 + i;
-
-                // Ricevi da menum + 2^i
-                MPI_Recv(&sumparz, 1, MPI_INT, partner, tag, MPI_COMM_WORLD, &status);
-                sum += sumparz;
-            } else {
-                partner = menum - (1 << i);
-                tag = 60 + i;
-
-                // Invia a menum - 2^i
-                MPI_Send(&sum, 1, MPI_INT, partner, tag, MPI_COMM_WORLD);
+            
+            if((menum % (int)pow(2, i)) == 0){
+                
+                if (menum % (int)pow(2, i + 1) == 0){
+                    partner = menum + pow(2, i);
+                    tag = 60 + i;
+                    MPI_Recv(&sumparz, 1, MPI_INT, partner, tag, MPI_COMM_WORLD, &status);
+                    sum += sumparz;
+                    nsum ++;
+                }
+                else{
+                    partner = menum - pow(2, i);
+                    tag = 60 + i;
+                    MPI_Send(&sum, 1, MPI_INT, partner, tag, MPI_COMM_WORLD);
+                }
             }
         }
         end_time = MPI_Wtime();
     } else{ // third_strategy
         for(int i = 0; i < logNproc; i++){
-            int partner = menum ^ (1 << i); // Calcola il processo partner
+            int partner;
 
-            if (menum < partner) {
+            if ((menum % (int)pow(2, i + 1)) < (int)pow(2, i)) {
+                partner = menum + (int)pow(2, i);
                 int send_tag = 40 + i;
                 int recv_tag = 40 + i;
 
@@ -168,6 +172,7 @@ int main(int argc, char *argv[]){
                 // Aggiorna la variabile 'sum' con la somma ricevuta
                 sum += sumparz;
             } else {
+                partner = menum - (int)pow(2, i);
                 int send_tag = 40 + i;
                 int recv_tag = 40 + i;
 
@@ -183,7 +188,7 @@ int main(int argc, char *argv[]){
     }
 
     double timeP = end_time - start_time;
-    printf("Il tempo impiegato da %d è di %e s\n", menum, );
+    printf("Il tempo impiegato da %d è di %e s\n", menum, timeP);
 
     MPI_Reduce(&timeP, &timetot, 1, MPI_DOUBLE, MPI_MAX, 0, MPI_COMM_WORLD);    
 
@@ -194,6 +199,7 @@ int main(int argc, char *argv[]){
             printf("Tempo totale impiegato per l'algoritmo %e\n", timetot);
         }
     }else{
+        printf("Sono %d e il numero di somme eseguite alla fine e' %d\n", menum, nsum);
         printf("\nSono il processo %d e la somma totale = %d\n", menum, sum);
         if(menum == 0)
             printf("Tempo totale impiegato per l'algoritmo %e\n", timetot);
@@ -211,24 +217,6 @@ int main(int argc, char *argv[]){
     return 0;
 }
 
-int check_if_inputs_are_valid(int argc, int N, int strategy){
-    if(N <= 20 && argc - 3 != N && strategy_is_valid(strategy) == 0){
-        fprintf(stderr, "Il numero di elementi inserito non corrisponde ad N!\n");
-        return EXIT_FAILURE;
-    }
-
-    if(N <= 0){
-        fprintf(stderr, "Inserire un numero maggiore di 0!\n");
-        return EXIT_FAILURE;
-    }
-
-    if(strategy_is_valid(strategy) != 0){
-        fprintf(stderr, "La strategia deve essere un valore compreso tra 1 e 3!\n");
-        return EXIT_FAILURE;
-    }
-
-    return 0; // valid input
-}
 
 
 /*
