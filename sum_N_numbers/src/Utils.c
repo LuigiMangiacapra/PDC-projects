@@ -9,6 +9,8 @@
 #include <time.h>
 #include <math.h>
 
+# include "mpi.h"
+
 /* *************************************************************************** */
 /*                      SUPPORT FUNCTION                                       */
 /* *************************************************************************** */
@@ -95,4 +97,40 @@ int sequential_sum(int *array, int n){
     }
 
     return sum;
+}
+
+void operand_distribution(int menum, int *elements, int *elements_loc, int nloc, int nproc, int rest){
+    int tag;
+    MPI_Status status;
+    
+    if (menum == 0){
+        for (int i = 0; i < nloc; i++){
+            elements_loc[i] = elements[i];
+        }
+
+        int tmp = nloc;
+        int start = 0;
+        for (int i = 1; i < nproc; i++){
+            start += tmp;
+            tag = 22 + i;
+            if (i == rest)
+                tmp -= 1;
+
+            MPI_Send(&elements[start], tmp, MPI_INT, i, tag, MPI_COMM_WORLD);
+        }
+    } else {
+        tag = 22 + menum;
+        MPI_Recv(elements_loc, nloc, MPI_INT, 0, tag, MPI_COMM_WORLD, &status);
+    }
+}
+
+void print_result(int menum, int strategy, int sum, double timetot){
+    if(strategy == 1){
+        if(menum == 0)
+            printf("La somma totale e' %d e l'algoritmo, per calcolarla, ha impiegato %e.\n", sum, timetot);
+    } else {
+        printf("\n Sono il processo %d e la somma totale e' %d\n", menum, sum);
+        if(menum == 0)
+            printf("Tempo totale impiegato per l'algoritmo: %e\n", timetot);
+    }
 }

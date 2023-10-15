@@ -7,7 +7,7 @@ LDFLAGS = -lm  # Aggiungi l'opzione -lm per collegare la libreria matematica
 TARGET = my_mpi_program
 
 # Lista dei file oggetto
-OBJECTS = main.o Strategy.o Utils.o
+OBJECTS = Main.o Strategy.o Utils.o
 
 # Regola predefinita: compilare il programma MPI
 all: $(TARGET)
@@ -18,7 +18,7 @@ $(TARGET): $(OBJECTS)
 
 # Regola per la compilazione di main.c
 main.o: main.c
-	$(CC) $(CFLAGS) -c main_prova.c -o main.o
+	$(CC) $(CFLAGS) -c Main.c -o Main.o
 
 # Regola per la compilazione di Strategy.c
 Strategy.o: Strategy.c

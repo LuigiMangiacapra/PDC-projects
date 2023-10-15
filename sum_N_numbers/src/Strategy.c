@@ -11,73 +11,99 @@
 
 #include "mpi.h"
 
-int menum;
-int nproc;
-int tag;
-int sumparz;
-MPI_Status status;
-int sum;
-int logNproc;
 
-void first_strategy(){
+int first_strategy(int menum, int nproc, int sum){
+    int sum_parz = 0;
+    int tag;
+    MPI_Status status;
+
     if(menum == 0){
-        for(int i=1; i<nproc; i++){
-            tag = 80+i;
-            MPI_Recv(&sumparz, 1, MPI_INT, i, tag, MPI_COMM_WORLD, &status);
-            sum = sum+sumparz;
+        for(int i = 1; i < nproc; i++){
+            tag = 80 + i;
+            MPI_Recv(&sum_parz, 1, MPI_INT, i, tag, MPI_COMM_WORLD, &status);
+            sum += sum_parz;
         }
     }else{
-        tag = menum+80;
+        tag = menum + 80;
         MPI_Send(&sum, 1, MPI_INT, 0, tag, MPI_COMM_WORLD);
     }
+
+    return sum;
 }
 
-void second_strategy(){
-    for(int i=0; i<logNproc; i++){
-        int partner = menum ^ (1 << i); // Calcola il processo partner
+int second_strategy(int menum, int logNproc, int sum){
+    int sum_parz = 0;
+    int tag;
+    int partner;
 
-        if (menum < partner) {
-        int send_tag = 40 + i;
-        int recv_tag = 40 + i;
+    int power_for_partecipation;
+    int does_processor_partecipate;
 
-        // Invia la somma locale al processo partner
-        MPI_Send(&sum, 1, MPI_INT, partner, send_tag, MPI_COMM_WORLD);
+    int power_for_communication;
+    int does_processor_receive;
 
-        // Ricevi la somma del processo partner
-        MPI_Recv(&sumparz, 1, MPI_INT, partner, recv_tag, MPI_COMM_WORLD, &status);
+    MPI_Status status;
 
-        // Aggiorna la variabile 'sum' con la somma ricevuta
-        sum += sumparz;
-        } else {
-            int send_tag = 40 + i;
-            int recv_tag = 40 + i;
+    for(int i = 0; i < logNproc; i++){
+        power_for_partecipation = (int) pow(2, i);
+        does_processor_partecipate = (menum % power_for_partecipation) == 0;
 
-            // Ricevi la somma dal processo partner
-            MPI_Recv(&sumparz, 1, MPI_INT, partner, recv_tag, MPI_COMM_WORLD, &status);
+        if(does_processor_partecipate){
+            power_for_communication = (int) pow(2, i + 1);
+            does_processor_receive = (menum % power_for_communication) == 0;
+
+            if (does_processor_receive){
+                partner = menum + power_for_partecipation;
+                tag = 60 + i;
+                MPI_Recv(&sum_parz, 1, MPI_INT, partner, tag, MPI_COMM_WORLD, &status);
+                sum += sum_parz;
+            }
+            else{
+                partner = menum - power_for_partecipation;
+                tag = 60 + i;
+                MPI_Send(&sum, 1, MPI_INT, partner, tag, MPI_COMM_WORLD);
+            }
+        }
+    }
+
+    return sum;
+}
+
+int third_strategy(int menum, int logNproc, int sum){
+    int partner;
+    int send_tag;
+    int recv_tag;
+    int sum_parz;
+    MPI_Status status;
+
+    sum_parz = 0;
+    for(int i = 0; i < logNproc; i++){
+        if ((menum % (int) pow(2, i + 1)) < (int) pow(2, i)) {
+            partner = menum + (int)pow(2, i);
+            send_tag = 40 + i;
+            recv_tag = 40 + i;
 
             // Invia la somma locale al processo partner
             MPI_Send(&sum, 1, MPI_INT, partner, send_tag, MPI_COMM_WORLD);
-        }
-    }
-}
 
-void third_strategy(){
-    for(int i=0; i<logNproc; i++){
-        int partner;
+            // Ricevi la somma del processo partner
+            MPI_Recv(&sum_parz, 1, MPI_INT, partner, recv_tag, MPI_COMM_WORLD, &status);
 
-        if ((menum % (int)pow(2, i + 1)) < (1 << i)) {
-            partner = menum + (1 << i);
-            tag = 60 + i;
-
-            // Ricevi da menum + 2^i
-            MPI_Recv(&sumparz, 1, MPI_INT, partner, tag, MPI_COMM_WORLD, &status);
-            sum += sumparz;
+            // Aggiorna la variabile 'sum' con la somma ricevuta
+            sum += sum_parz;
         } else {
-            partner = menum - (1 << i);
-            tag = 60 + i;
+            partner = menum - (int) pow(2, i);
+            send_tag = 40 + i;
+            recv_tag = 40 + i;
 
-            // Invia a menum - 2^i
-            MPI_Send(&sum, 1, MPI_INT, partner, tag, MPI_COMM_WORLD);
+            // Ricevi la somma dal processo partner
+            MPI_Recv(&sum_parz, 1, MPI_INT, partner, recv_tag, MPI_COMM_WORLD, &status);
+
+            // Invia la somma locale al processo partner
+            MPI_Send(&sum, 1, MPI_INT, partner, send_tag, MPI_COMM_WORLD);
+            sum += sum_parz;
         }
     }
+
+    return sum;
 }

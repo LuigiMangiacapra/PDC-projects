@@ -37,4 +37,27 @@ int strategy_2_OR_3_are_applicable(int strategy, int nproc);
  */
 int sequential_sum(int *array, int n);
 
+/**
+ * @brief the processor with id 0 send the elements to sum to the other processor
+ * 
+ * @param menum id of the processor
+ * @param elements array of all integers
+ * @param elements_loc local array for each processor
+ * @param nloc number of elements to sum for each processor
+ * @param nproc number of processor
+ * @param rest the rest of division between the all numbers to sum and number of processor
+ */
+void operand_distribution(int menum, int *elements, int *elements_loc, int nloc, int nproc, int rest);
+
+/**
+ * @brief print results: print the partial sum for each processor, the time spent for each partial sum,
+ * the total sum and total time spent for the total sum
+ * 
+ * @param menum id of processor
+ * @param strategy the strategy applied
+ * @param sum the result to print
+ * @param timetot time taken
+ */
+void print_result(int menum, int strategy, int sum, double timetot);
+
 #endif 

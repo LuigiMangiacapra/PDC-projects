@@ -1,12 +1,34 @@
 #ifndef STRATEGY_H
 #define STRATEGY_H 
 
-// da aggiustare in termini di passaggio di parametri, ecc ...
+/**
+ * @brief apply the first strategy
+ * 
+ * @param menum id of the processor
+ * @param nproc number of processor
+ * @param sum partial sum performed at the first step
+ * @return int total sum
+ */
+int first_strategy(int menum, int nproc, int sum);
 
-void first_strategy();
+/**
+ * @brief apply the second strategy
+ * 
+ * @param menum id of the processor
+ * @param logNproc number of steps
+ * @param sum  partial sum performed at the first step
+ * @return int total sum
+ */
+int second_strategy(int menum, int logNproc, int sum);
 
-void second_strategy();
-
-void third_strategy();
+/**
+ * @brief apply the third strategy
+ * 
+ * @param menum id of the processor
+ * @param logNproc number of steps
+ * @param sum  partial sum performed at the first step
+ * @return int total sum
+ */
+int third_strategy(int menum, int logNproc, int sum);
 
 #endif 
