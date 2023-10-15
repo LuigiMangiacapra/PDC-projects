@@ -19,8 +19,6 @@ MPI_Status status;
 int sum;
 int logNproc;
 
-
-
 void first_strategy(){
     if(menum == 0){
         for(int i=1; i<nproc; i++){
