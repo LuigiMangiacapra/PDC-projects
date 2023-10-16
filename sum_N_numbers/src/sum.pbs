@@ -41,7 +41,7 @@ echo PBS: current home directory is $PBS_O_HOME
 echo PBS: PATH = $PBS_O_PATH
 echo -------------------------------
 echo "Compilo"
-/usr/lib64/openmpi/1.4-gcc/bin/mpicc -o $PBS_O_WORKDIR/main $PBS_O_WORKDIR/Main.c -lm -std=c99
+/usr/lib64/openmpi/1.4-gcc/bin/mpicc -o $PBS_O_WORKDIR/main $PBS_O_WORKDIR/Main.c $PBS_O_WORKDIR/Strategy.c $PBS_O_WORKDIR/Utils.c -lm -std=c99
 
 echo "Eseguo"
-/usr/lib64/openmpi/1.4-gcc/bin/mpiexec -machinefile $PBS_NODEFILE -np 8 $PBS_O_WORKDIR/main 100000000000 1
+/usr/lib64/openmpi/1.4-gcc/bin/mpiexec -machinefile $PBS_NODEFILE -np 8 $PBS_O_WORKDIR/main 1000000 1
