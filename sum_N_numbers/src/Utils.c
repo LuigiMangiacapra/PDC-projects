@@ -134,3 +134,9 @@ void print_result(int menum, int strategy, int sum, double timetot){
             printf("Tempo totale impiegato per l'algoritmo: %e\n", timetot);
     }
 }
+
+void compute_power_of_two(int logNproc, int *array){
+    for(int i = 0; i < logNproc + 1; i++){
+        array[i] = (int) pow(2, i);
+    }
+}

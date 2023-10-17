@@ -31,7 +31,7 @@ int first_strategy(int menum, int nproc, int sum){
     return sum;
 }
 
-int second_strategy(int menum, int logNproc, int sum){
+int second_strategy(int menum, int logNproc, int *array, int sum){
     int sum_parz = 0;
     int tag;
     int partner;
@@ -45,11 +45,11 @@ int second_strategy(int menum, int logNproc, int sum){
     MPI_Status status;
 
     for(int i = 0; i < logNproc; i++){
-        power_for_partecipation = (int) pow(2, i);
+        power_for_partecipation =  array[i];
         does_processor_partecipate = (menum % power_for_partecipation) == 0;
 
         if(does_processor_partecipate){
-            power_for_communication = (int) pow(2, i + 1);
+            power_for_communication = array[i + 1];
             does_processor_receive = (menum % power_for_communication) == 0;
 
             if (does_processor_receive){
@@ -69,7 +69,7 @@ int second_strategy(int menum, int logNproc, int sum){
     return sum;
 }
 
-int third_strategy(int menum, int logNproc, int sum){
+int third_strategy(int menum, int logNproc, int *array, int sum){
     int partner;
     int send_tag;
     int recv_tag;
@@ -78,8 +78,8 @@ int third_strategy(int menum, int logNproc, int sum){
 
     sum_parz = 0;
     for(int i = 0; i < logNproc; i++){
-        if ((menum % (int) pow(2, i + 1)) < (int) pow(2, i)) {
-            partner = menum + (int)pow(2, i);
+        if ((menum % array[i + 1]) < array[i]) {
+            partner = menum + array[i];
             send_tag = 40 + i;
             recv_tag = 40 + i;
 
@@ -92,7 +92,7 @@ int third_strategy(int menum, int logNproc, int sum){
             // Aggiorna la variabile 'sum' con la somma ricevuta
             sum += sum_parz;
         } else {
-            partner = menum - (int) pow(2, i);
+            partner = menum - array[i];
             send_tag = 40 + i;
             recv_tag = 40 + i;
 

@@ -17,16 +17,17 @@
 # define STRATEGY_3 3
 
 int main(int argc, char *argv[]){
-    int menum;              // id del processore
-    int nproc;              // numero processori
-    int N;                  // numero di elementi da sommare
-    int sum;                // somma totale da stampare
-    int logNproc;           // numero di passi da effettuare per la II, III strategia
-    int strategy;           // strategia con cui sommare 
-    int nloc;               // numero di elementi che ciascun processore deve sommare
-    int rest;               // resto della divisione 
-    int *elements;          // array completo
-    int *elements_loc;      // vettore di elementi locale
+    int menum;                      // id del processore
+    int nproc;                      // numero processori
+    int N;                          // numero di elementi da sommare
+    int sum;                        // somma totale da stampare
+    int logNproc;                   // numero di passi da effettuare per la II, III strategia
+    int strategy;                   // strategia con cui sommare 
+    int nloc;                       // numero di elementi che ciascun processore deve sommare
+    int rest;                       // resto della divisione 
+    int *elements;                  // array completo
+    int *elements_loc;              // vettore di elementi locale
+    int *array_of_powers_of_two;    // vettore di potenze di 2
     double end_time;
     double start_time;
     double timetot = 0;
@@ -72,10 +73,20 @@ int main(int argc, char *argv[]){
     MPI_Bcast(&N, 1, MPI_INT, 0, MPI_COMM_WORLD);
     MPI_Bcast(&strategy, 1, MPI_INT, 0, MPI_COMM_WORLD);
 
-    //per risparmiare tempo computazionale
-    if(strategy == 2 || strategy == 3){
+    // compute the logarithm and powers of two for second and third strategy 
+    if(strategy == STRATEGY_2 || strategy == STRATEGY_3) {
+        // get number of steps
         logNproc = log2(nproc); 
+        // allocation of array of powers of 2
+        array_of_powers_of_two = (int *)malloc(sizeof(int) * logNproc);
+        if(array_of_powers_of_two == NULL){
+            fprintf(stderr, "Errore nell'allocazione della memoria per l'array 'array_of_powers_of_two'!\n");
+            return EXIT_FAILURE;
+        }
+        // fill the array with powers of 2
+        compute_power_of_two(logNproc, array_of_powers_of_two);
     }
+
 
     // in order to check how many elements each processor must sum
     nloc = N / nproc;
@@ -107,9 +118,9 @@ int main(int argc, char *argv[]){
     if(strategy == STRATEGY_1){
         sum = first_strategy(menum, nproc, sum);
     }else if(strategy == STRATEGY_2){
-        sum = second_strategy(menum, logNproc, sum);
+        sum = second_strategy(menum, logNproc, array_of_powers_of_two, sum);
     } else{ // third_strategy
-        sum = third_strategy(menum, logNproc, sum);
+        sum = third_strategy(menum, logNproc, array_of_powers_of_two, sum);
     }
 
     end_time = MPI_Wtime();
@@ -127,8 +138,10 @@ int main(int argc, char *argv[]){
     if(menum == 0){ 
         free(elements);
         free(elements_loc);
+        free(array_of_powers_of_two);
     }else{
         free(elements_loc);
+        free(array_of_powers_of_two);
     }
 
     MPI_Finalize();

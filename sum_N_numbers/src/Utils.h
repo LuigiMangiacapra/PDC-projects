@@ -60,4 +60,12 @@ void operand_distribution(int menum, int *elements, int *elements_loc, int nloc,
  */
 void print_result(int menum, int strategy, int sum, double timetot);
 
+/**
+ * @brief compute the powers of 2 for second and third strategy
+ * 
+ * @param logNproc number of steps
+ * @param array array to fill
+ */
+void compute_power_of_two(int logNproc, int *array);
+
 #endif 
