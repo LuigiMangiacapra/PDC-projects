@@ -1,2 +1,8 @@
 sum_N_numbers/src/sum.c
 sum_N_numbers/src/my_mpi_program
+sum_N_numbers/src/.vscode/c_cpp_properties.json
+sum_N_numbers/src/.vscode/launch.json
+sum_N_numbers/src/.vscode/settings.json
+sum_N_numbers/src/Main.o
+sum_N_numbers/src/Strategy.o
+sum_N_numbers/src/Utils.o

@@ -1,0 +1,21 @@
+wn280.scope.unina.it
+wn280.scope.unina.it
+wn279.scope.unina.it
+wn279.scope.unina.it
+--------------------------
+--------------------------
+This job is allocated on 2 cpu(s) on host:
+wn279.scope.unina.it
+wn280.scope.unina.it
+--------------------------
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/MNGLGU98B/Progetto_Sum/Main /homes/DMA/PDC/2024/MNGLGU98B/Progetto_Sum/Main.c /homes/DMA/PDC/2024/MNGLGU98B/Progetto_Sum/Strategy.c /homes/DMA/PDC/2024/MNGLGU98B/Progetto_Sum/Utils.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/-machinefile hotlist -np 2 /homes/DMA/PDC/2024/MNGLGU98B/Progetto_Sum/Main
+Generazione numeri randomici...
+Il tempo impiegato da 1 è di 1.986694e-02 s
+
+ Sono il processo 1 e la somma totale e' 10000000
+Il tempo impiegato da 0 è di 1.986694e-02 s
+
+ Sono il processo 0 e la somma totale e' 10000000
+Tempo totale impiegato per l'algoritmo: 1.986694e-02

@@ -1,0 +1,33 @@
+wn280.scope.unina.it
+wn280.scope.unina.it
+wn280.scope.unina.it
+wn280.scope.unina.it
+wn279.scope.unina.it
+wn279.scope.unina.it
+wn279.scope.unina.it
+wn279.scope.unina.it
+wn278.scope.unina.it
+wn278.scope.unina.it
+wn278.scope.unina.it
+wn278.scope.unina.it
+wn277.scope.unina.it
+wn277.scope.unina.it
+wn277.scope.unina.it
+wn277.scope.unina.it
+--------------------------
+--------------------------
+This job is allocated on 4 cpu(s) on host:
+wn277.scope.unina.it
+wn278.scope.unina.it
+wn279.scope.unina.it
+wn280.scope.unina.it
+--------------------------
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/MNGLGU98B/Progetto_Sum/Main /homes/DMA/PDC/2024/MNGLGU98B/Progetto_Sum/Main.c /homes/DMA/PDC/2024/MNGLGU98B/Progetto_Sum/Strategy.c /homes/DMA/PDC/2024/MNGLGU98B/Progetto_Sum/Utils.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/-machinefile hotlist -np 4 /homes/DMA/PDC/2024/MNGLGU98B/Progetto_Sum/Main
+Generazione numeri randomici...
+Il tempo impiegato da 3 è di 9.923935e-03 s
+Il tempo impiegato da 2 è di 9.920835e-03 s
+Il tempo impiegato da 0 è di 9.952068e-03 s
+Il tempo impiegato da 1 è di 9.928942e-03 s
+La somma totale e' 10000000 e l'algoritmo, per calcolarla, ha impiegato 9.952068e-03.
