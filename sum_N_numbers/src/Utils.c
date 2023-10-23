@@ -34,18 +34,18 @@ static int strategy_is_valid(int strategy);
 /* *************************************************************************** */
 
 int check_if_inputs_are_valid(int argc, int N, int strategy){
-    if(N <= 20 && argc - 3 != N && strategy_is_valid(strategy) == 0){
-        fprintf(stderr, "Il numero di elementi inserito non corrisponde ad N!\n");
-        return EXIT_FAILURE;
-    }
-
     if(N <= 0){
         fprintf(stderr, "Inserire un numero maggiore di 0!\n");
         return EXIT_FAILURE;
     }
 
     if(strategy_is_valid(strategy) != 0){
-        fprintf(stderr, "La strategia deve essere un valore compreso tra 1 e 3!\n");
+        fprintf(stderr, "Strategia non valida: inserire un numero compreso fra 1 e 3!\n");
+        return EXIT_FAILURE;
+    }
+
+    if(N <= 20 && argc - 3 != N){
+        fprintf(stderr, "Il numero di elementi inserito non corrisponde ad N!\n");
         return EXIT_FAILURE;
     }
 
@@ -53,7 +53,7 @@ int check_if_inputs_are_valid(int argc, int N, int strategy){
 }
 
 int strategy_is_valid(int strategy){
-    if(strategy < 1 && strategy > 3)
+    if(strategy < 1 || strategy > 3)
         return EXIT_FAILURE;
 
     // it's valid 

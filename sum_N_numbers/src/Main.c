@@ -48,7 +48,7 @@ int main(int argc, char *argv[]){
         strategy = atoi(argv[2]);
 
         if(check_if_inputs_are_valid(argc, N, strategy) != 0){
-            MPI_Finalize();
+            printf("Input non valido: chiusura del programma.\n");
             return EXIT_FAILURE;
         }
 
