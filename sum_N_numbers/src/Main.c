@@ -49,7 +49,7 @@ int main(int argc, char *argv[]){
 
         if(check_if_inputs_are_valid(argc, N, strategy) != 0){
             printf("Input non valido: chiusura del programma.\n");
-            return EXIT_FAILURE;
+            MPI_Abort(MPI_COMM_WORLD, EXIT_FAILURE);
         }
 
         // array malloc
