@@ -14,9 +14,8 @@ void matxvet(double *A, int N, int M, double *x, double *b, int n_threads){
         for (j = 0; j < M; j++){
             b[i] += A[i * M + j] * x[j];
         }
-        printf("Hello from thread %d, nthreads %d\n", omp_get_thread_num(), omp_get_num_threads());
+        //printf("Hello from thread %d, nthreads %d\n", omp_get_thread_num(), omp_get_num_threads());
     }
-    //
 }
 
 void initialize_matrix(double **A, int N, int M) {
