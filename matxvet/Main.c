@@ -16,7 +16,7 @@ int main(int argc, char *argv[])
     struct timeval time;
 
     // get input data and initialize the matrix
-	read_input(argc, argv, &N, &M, &n_threads);
+    read_input(argc, argv, &N, &M, &n_threads);
     initialize_matrix(&A, N, M);
     initialize_array(&x, M);
     fill_array(x, M);
@@ -29,7 +29,7 @@ int main(int argc, char *argv[])
     start = time.tv_sec + (time.tv_usec / 1000000.0);
     
     // compute Ax=b in parallel
-    matxvet(A, N, M, x, b, n_threads);
+    matxvet(A, N, M, x, b);
 
     gettimeofday(&time, NULL);
     end = time.tv_sec + (time.tv_usec / 1000000.0);
