@@ -9,9 +9,8 @@
  * @param M number of columns of A.
  * @param x Pointer to array.
  * @param b Result of product.
- * @param n_threads Number of threads to use for product.
  */
-void matxvet(double *A, int N, int M, double *x, double *b, int n_threads);
+void matxvet(double *A, int N, int M, double *x, double *b);
 
 
 /**
