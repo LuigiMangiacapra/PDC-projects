@@ -6,7 +6,7 @@
 
 # include "Lib.h"
 
-void matxvet(double *A, int N, int M, double *x, double *b, int n_threads){
+void matxvet(double *A, int N, int M, double *x, double *b){
     int i,j;
     #pragma omp parallel for default(none) shared(N, M, A, x, b) private(i, j)
     // prodotto matrice vettore
