@@ -24,6 +24,14 @@ void matrix_distribution(int nproc, int *matrix, int *elements_loc, int *displs,
 
 void mat_product(int *A, int *B, int *C, int dim);
 
-void broadcastMultiplyRolling(int *A_loc, int *B_loc, int *C_loc, int block_loc, MPI_Comm colSub, int menum, int nproc);
+void BMR(int menum, int dimSubatrix, int dimGrid, int* partialResult, int* submatrixA, int* submatrixB, int* coordinate, MPI_Comm *grid, MPI_Comm *gridr, MPI_Comm *gridc);
+
+void mat_product(int *A, int *B, int *C, int dim);
+
+void copyVec(int* m1, int* m2, int rowsM2, int colsM2);
+
+void localProduct(int* m1, int* m2, int* res, int colsM1, int rowsM2);
+
+void createResult(int* partial, int* final, int menum, int nproc, int dimMat, int dimSubatrix);
 
 #endif

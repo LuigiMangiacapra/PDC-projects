@@ -159,25 +159,108 @@ void mat_product(int *A, int *B, int *C, int dim){
     }
 }
 
-void broadcastMultiplyRolling(int *A_loc, int *B_loc, int *C_loc, int block_loc, MPI_Comm colSub, int menum, int nproc){
-    MPI_Status status;
-
-    // Broadcasting delle matrici locali
-    for (int i = 0; i < block_loc; i++){
-        MPI_Bcast(&A_loc[i], block_loc, MPI_INT, i % (int)sqrt(nproc), colSub);
+void copyVec(int* m1, int* m2, int rowsM2, int colsM2){
+    int i, j;
+    for(i = 0; i < rowsM2; i++){
+        for(j = 0; j < colsM2; j++)
+            m1[i * colsM2 + j] = m2[i * colsM2 + j]; // m1: risultato
     }
-
-    // Moltiplicazione delle matrici locali
-    printf("ok prima\n");
-    mat_product(A_loc, B_loc, C_loc, block_loc);
-    printf("ok dopo\n");
-
-    // Rolling delle colonne
-    for (int i = 0; i < block_loc; i++){
-        int targetRank = (menum + i) % nproc;
-
-        // Invia la colonna di BLoc a targetRank
-        MPI_Sendrecv_replace(&B_loc[i], block_loc, MPI_INT, targetRank, i, targetRank, i, colSub, &status);
-    }
-    printf("ok fine\n");
 }
+
+
+void localProduct(int* m1, int* m2, int* res, int colsM1, int rowsM2){
+    int i, j, k;
+
+    for(i = 0; i < rowsM2; i++){
+        for(j = 0; j < colsM1; j++){
+            int sum = 0.0;
+            for(k = 0; k < colsM1; k++)
+                sum += m1[i * colsM1 + k] * m2[k * colsM1 + j];
+            res[i * colsM1 + j] = sum;
+        }
+    }
+}
+
+
+void BMR(int menum, int dimSubatrix, int dimGrid, int* partialResult, int* submatrixA, int* submatrixB, int* coordinate, MPI_Comm *grid, MPI_Comm *gridr, MPI_Comm *gridc){
+    int step, tag, j, i, sender, menumRow, menumCol, senderCol, receiverCol;
+    int *bufferA;
+    MPI_Status status;
+    initialize_matrix(&bufferA, dimSubatrix);
+
+    MPI_Comm_rank(*gridc, &menumCol);
+    MPI_Comm_rank(*gridr, &menumRow);
+
+    /*
+        Ad ogni step:
+         1. il processore sender invia la sottomatrice A agli altri processori sulla riga;
+         2. ogni processore moltiplica la sottomatrice A che ha ricevuto/copiato nel caso del step 0 (bufferA) per la sottomatrice B che possiede;
+         3. ogni processore riceve una sottomatrice B dal processore nella stessa colonna, nella riga successiva ed aggiorna la propria. 
+    */
+    for(step = 0; step < dimGrid; step++){
+        if(coordinate[1] == (coordinate[0] + step) % dimGrid){ 
+            sender = menumRow;
+            copyVec(bufferA, submatrixA, dimSubatrix, dimSubatrix);
+        }
+        else
+            sender = (coordinate[0] + step) % dimGrid;
+        
+        for(j = 0; j < dimSubatrix; j++)
+            MPI_Bcast(&bufferA[j * dimSubatrix], dimSubatrix, MPI_DOUBLE, sender, *gridr);
+      
+        localProduct(bufferA, submatrixB, partialResult, dimSubatrix, dimSubatrix);
+
+		if (menumCol-1 < 0)
+			receiverCol = (menumCol-1) + dimGrid;
+		else
+			receiverCol = (menumCol-1) % dimGrid;
+			
+        if (menumCol+1 < 0)
+			senderCol = (menumCol+1) + dimGrid;
+		else
+			senderCol = (menumCol+1) % dimGrid;
+        for(j = 0; j < dimSubatrix; j++){
+            MPI_Send(&submatrixB[j * dimSubatrix], dimSubatrix, MPI_DOUBLE, receiverCol, 20 + receiverCol, *gridc);
+            MPI_Recv(&submatrixB[j * dimSubatrix], dimSubatrix, MPI_DOUBLE, senderCol, 20 + menumCol, *gridc, &status);
+        }
+    }
+}
+
+
+void createResult(int* partial, int* final, int menum, int nproc, int dimMat, int dimSubatrix){
+    int i, j, l, p, k;
+    MPI_Status status;
+    int** A;
+
+    initialize_matrix(A, dimSubatrix);
+
+    if(menum == 0){
+        for(i = 0; i < dimSubatrix; i++){
+            for(j = 0; j < dimSubatrix; j++)
+                final[i * dimMat + j] = partial[i * dimSubatrix + j];
+        }
+
+        i = 1; p = 0;
+        while(i < nproc){
+            k = (i * dimSubatrix) % dimMat;
+            for(j = 0; j < dimSubatrix; j++){
+                MPI_Recv(A[j], dimSubatrix, MPI_INT, i, 20 + i, MPI_COMM_WORLD, &status);
+            }
+            for(l = 0; l < dimSubatrix; l++){
+                for(j = 0; j < dimSubatrix; j++)
+                    final[(j + p) * dimMat + k] = A[j][l];
+                
+                k++;
+                if(k == dimMat) p = p + dimSubatrix;
+            }
+            ++i;
+        }
+    }
+    else{
+        for(i = 0; i < dimSubatrix; i++)
+            MPI_Send(&partial[i * dimSubatrix], dimSubatrix, MPI_INT, 0, 20 + menum, MPI_COMM_WORLD);
+    }
+
+    return;
+}
+
