@@ -1,56 +1,60 @@
-# include <stdio.h>
-# include <stdlib.h>
-# include <time.h>
-# include <string.h>
-# include <math.h>
-# include <unistd.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <string.h>
+#include <math.h>
+#include <unistd.h>
 
-# include "mpi.h"
-# include "Lib.h"
+#include "mpi.h"
+#include "Lib.h"
 
-int main(int argc, char **argv){
-    int menum;                              // id processo
-    int nproc;                              // numero di processi
-    int row_grid, col_grid;                 // numero di righe e di colonne della griglia di processori
-    int N;                                  // numero di righe e colonne della matrice di valori numerici
-    int *coordinate;                        // coordinate griglia
-    int *A_loc, *B_loc, *C_loc;             // matrice di elementi locale
-    int *A, *B, *C;                         // matrice di elementi fornita in input
-    int *partialResult;
+int main(int argc, char **argv)
+{
+    int menum;                     // id processo
+    int nproc;                     // numero di processi
+    int row_grid, col_grid;        // numero di righe e di colonne della griglia di processori
+    int N;                         // numero di righe e colonne della matrice di valori numerici
+    int *coordinate;               // coordinate griglia
+    double *A_loc, *B_loc, *C_loc; // matrice di elementi locale
+    double *A, *B, *C;             // matrice di elementi fornita in input
+    double *partialResult;
     int check;
     int dimSubMatrix, dimGrid;
     double startTime, stopTime;
-	MPI_Comm comm_grid;                     // griglia
-    MPI_Comm comm_grid_row, comm_grid_col;  // sotto griglie
+    MPI_Comm comm_grid;                    // griglia
+    MPI_Comm comm_grid_row, comm_grid_col; // sotto griglie
 
-	MPI_Init(&argc, &argv);
-	MPI_Comm_rank(MPI_COMM_WORLD, &menum);
-	MPI_Comm_size(MPI_COMM_WORLD, &nproc);
+    MPI_Init(&argc, &argv);
+    MPI_Comm_rank(MPI_COMM_WORLD, &menum);
+    MPI_Comm_size(MPI_COMM_WORLD, &nproc);
 
     srand(time(NULL));
-	// get input data and initialize the matrix
-	if (menum == 0){
-        
+    // get input data and initialize the matrix
+    if (menum == 0)
+    {
+
         read_input(argc, argv, &N);
         dimGrid = sqrt(nproc);
-        //check integrità parametri e validità matrice
-			if(nproc != dimGrid*dimGrid || N % dimGrid != 0){ 
-				printf("Errore: impossibile accettare parametri in input.\n");
-				check = -1;
-			}
-			else{
-				check = 1;
-                initialize_matrix(&A, N);
-                fill_matrix(A, N);
-                initialize_matrix(&B, N);
-                fill_matrix(B, N);
-            }
-        // Result
-        //initialize_matrix(&C, N);
-	}
+        // check integrità parametri e validità matrice
+        if (nproc != dimGrid * dimGrid || N % dimGrid != 0)
+        {
+            printf("Errore: impossibile accettare parametri in input.\n");
+            check = -1;
+        }
+        else
+        {
+            check = 1;
+            initialize_matrix(&A, N);
+            fill_matrix(A, N);
+            initialize_matrix(&B, N);
+            fill_matrix(B, N);
+            initialize_matrix(&C, N);
+        }
+    }
 
     MPI_Bcast(&check, 1, MPI_INT, 0, MPI_COMM_WORLD);
-    if(check == 1){
+    if (check == 1)
+    {
         // send data from process with rand 0 to all process
         MPI_Bcast(&N, 1, MPI_INT, 0, MPI_COMM_WORLD);
         MPI_Bcast(&dimGrid, 1, MPI_INT, 0, MPI_COMM_WORLD);
@@ -76,17 +80,13 @@ int main(int argc, char **argv){
         // compute offset in order to understand where to start from matrix to send a block
         get_offset(displs, row_grid, col_grid, n_loc, N);
 
-        // print displs and sendcounts for each process
         MPI_Barrier(comm_grid);
-        if (menum == 0)
-            print_array(displs, nproc);
-        MPI_Barrier(comm_grid);
-        printf("(%d) sendcounts: [%d]\n", menum, block_loc);
+        // printf("(%d) sendcounts: [%d]\n", menum, block_loc);
 
         // Allocazione della matrice locale su ogni processo
-        A_loc = (int *)calloc(block_loc, sizeof(int));
-        B_loc = (int *)calloc(block_loc, sizeof(int));
-        C_loc = (int *)calloc(block_loc, sizeof(int));
+        A_loc = (double *)calloc(block_loc, sizeof(double));
+        B_loc = (double *)calloc(block_loc, sizeof(double));
+        C_loc = (double *)calloc(block_loc, sizeof(double));
         if (A_loc == NULL || B_loc == NULL || C_loc == NULL)
         {
             fprintf(stderr, "Error allocating memory for the local matrix!\n");
@@ -95,42 +95,41 @@ int main(int argc, char **argv){
         }
 
         // distribuzione della matrice per ciascun processo
-        sleep(1);
         MPI_Barrier(comm_grid);
         matrix_distribution(nproc, A, A_loc, displs, n_loc, block_loc, stride);
         matrix_distribution(nproc, B, B_loc, displs, n_loc, block_loc, stride);
-        
+
         startTime = MPI_Wtime();
         BMR(menum, dimSubMatrix, dimGrid, partialResult, A_loc, B_loc, coordinate, &comm_grid, &comm_grid_row, &comm_grid_col);
-        //createResult(partialResult, C, menum, nproc, N, dimSubMatrix);
+        createResult(partialResult, C, menum, nproc, N, dimSubMatrix);
         stopTime = MPI_Wtime();
-
-        mat_product(A_loc, B_loc, C_loc, n_loc);
-
-        // printf("stampo.\n");
 
         // Sincronizzazione per garantire che tutti i processi abbiano ricevuto i dati
         MPI_Barrier(comm_grid);
-        // Stampa in ordine sequenziale
-        for (int i = 0; i < nproc; i++)
-        {
-            MPI_Barrier(comm_grid);
-            if (menum == i)
-            {
-                if (menum == 0)
-                    printf("\n");
-                printf("Process %d received A_loc:  \n", menum);
-                print_matrix(A_loc, n_loc);
-                sleep(1);
-                printf("Process %d received B_loc:  \n", menum);
-                print_matrix(B_loc, n_loc);
-                sleep(1);
-                printf("Process %d results C_loc:  \n", menum);
-                print_matrix(C_loc, n_loc);
-            }
-        }
 
-        sleep(1);
+        // Stampa in ordine sequenziale
+        if (menum == 0)
+        {
+            printf("\n");
+            /*printf("Process %d received A_loc:  \n", menum);
+            print_matrix(A_loc, n_loc);
+            printf("\n\n");
+            printf("Process %d received B_loc:  \n", menum);
+            print_matrix(B_loc, n_loc);
+            printf("\n\n");
+            printf("Process %d results C_loc:  \n", menum);
+            print_matrix(C_loc, n_loc);
+            printf("\n\n");*/
+
+            printf("result:\n");
+            for (int i = 0; i < N; i++)
+            {
+                for (int j = 0; j < N; j++)
+                    printf("%.2lf ", C[i * N + j]);
+                printf("\n");
+            }
+            printf("\nTime: %lf seconds\n", stopTime - startTime);
+        }
 
         // deallocate memory
         if (menum == 0)
@@ -147,6 +146,5 @@ int main(int argc, char **argv){
 
         MPI_Finalize();
     }
-	return 0;
+    return 0;
 }
-
