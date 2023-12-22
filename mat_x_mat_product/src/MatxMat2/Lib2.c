@@ -26,7 +26,7 @@ void createMat(double ***matrix, int rows, int columns, bool fill)
                 (*matrix)[i][j] = (double)rand() / RAND_MAX * 150;
         }
     }
-    
+
     return;
 }
 
@@ -106,7 +106,7 @@ void print_array(double *array, int size)
 }
 
 void copy_in_vector(double **matrix, double *vect, int dimMat)
-{   
+{
 
     for (int i = 0; i < dimMat; i++)
     {
@@ -120,7 +120,7 @@ void copy_in_vector(double **matrix, double *vect, int dimMat)
 }
 
 void matrix_distribution(int nproc, double **matrix, double **elements_loc, int *displs, int dimSubatrix, int block_size, int stride)
-{   
+{
 
     MPI_Datatype vectorType, block_Type; // blocco
     double *vect_matrix;
@@ -228,8 +228,6 @@ void BMR(int menum, int dimSubatrix, int dimGrid, double **partialResult, double
         }
     }
 }
-
-
 
 void createResult(double **partial, double **final, int menum, int nproc, int dimMat, int dimSubatrix)
 {

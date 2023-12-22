@@ -90,7 +90,7 @@ void fill_matrix(double *matrix, int N)
     for (int i = 0; i < N; i++)
     {
         for (int j = 0; j < N; j++)
-            matrix[index++] = rand() % 10 + 1;
+            matrix[index++] = 2;
     }
 
     printf("---------------------------------------------\n--- \t\t Matrix \t\t  --- \n"
@@ -99,11 +99,11 @@ void fill_matrix(double *matrix, int N)
     printf("---------------------------------------------\n");
 }
 
-void print_array(double *array, int size)
+void print_array(int *array, int size)
 {
     printf("(0) displs: [ ");
     for (int i = 0; i < size; i++)
-        printf("%.2lf ", array[i]);
+        printf("%d ", array[i]);
     printf("]\n\n");
 }
 
@@ -182,13 +182,13 @@ void mat_product(double *A, double *B, double *C, int dim)
     }
 }
 
-void copyMatrix(double **m1, double **m2, int rowsM2, int colsM2)
+void copyMatrix(double **m1, double *m2, int rowsM2, int colsM2)
 {
     int i, j;
     for (i = 0; i < rowsM2; i++)
     {
         for (j = 0; j < colsM2; j++)
-            m1[i][j] = m2[i][j]; // m1: risultato
+            m1[i][j] = m2[i * colsM2 + j]; // m1: risultato
     }
 
     return;
@@ -239,7 +239,7 @@ void BMR(int menum, int dimSubatrix, int dimGrid, double *partialResult, double 
         if (coordinate[1] == (coordinate[0] + step) % dimGrid)
         {
             sender = menumRow;
-            copyMatrix(bufferA, &submatrixA, dimSubatrix, dimSubatrix);
+            copyMatrix(bufferA, submatrixA, dimSubatrix, dimSubatrix);
         }
         else
             sender = (coordinate[0] + step) % dimGrid;
@@ -260,42 +260,59 @@ void BMR(int menum, int dimSubatrix, int dimGrid, double *partialResult, double 
             senderCol = (menumCol + 1) % dimGrid;
         for (j = 0; j < dimSubatrix; j++)
         {
-            MPI_Send(&submatrixB[j * dimSubatrix], dimSubatrix, MPI_DOUBLE, receiverCol, 20 + receiverCol, *gridc);
-            MPI_Recv(&submatrixB[j * dimSubatrix], dimSubatrix, MPI_DOUBLE, senderCol, 20 + menumCol, *gridc, &status);
+            MPI_Send(&submatrixB[j], dimSubatrix, MPI_DOUBLE, receiverCol, 20 + receiverCol, *gridc);
+            MPI_Recv(&submatrixB[j], dimSubatrix, MPI_DOUBLE, senderCol, 20 + menumCol, *gridc, &status);
         }
     }
 }
 
-void createResult(double *partial, double *final, int menum, int nproc, int dimMat, int dimSubatrix)
+void createResult(double *partial, double *final, int menum, int nproc, int dimMat, int dimSubatrix, int *displs)
 {
     int i, j, l, p, k;
     MPI_Status status;
-    double **A;
+    double *A;
+    MPI_Datatype vectorType, block_Type; // blocco
 
-    create_matrix(&A, dimSubatrix);
+    // printf("partial di %d:\n", menum);
+    // for (i = 0; i < dimSubatrix * dimSubatrix; i++)
+    // {
+    //     printf("%f ", partial[i]);
+    // }
+    // printf("\n\n");
+    int recvcount[4] = {4, 4, 4, 4};
+
+    initialize_matrix(&A, dimSubatrix);
+
+    MPI_Barrier(MPI_COMM_WORLD);
 
     if (menum == 0)
     {
         for (i = 0; i < dimSubatrix; i++)
         {
             for (j = 0; j < dimSubatrix; j++)
+            {
                 final[i * dimSubatrix + j] = partial[i * dimSubatrix + j];
+            }
         }
 
         i = 1;
         p = 0;
+
         while (i < nproc)
         {
             k = (i * dimSubatrix) % dimMat;
-            for (j = 0; j < dimSubatrix; j++)
+            for (j = 0; j < dimSubatrix * dimSubatrix; j++)
             {
-                MPI_Recv(A[j], dimSubatrix, MPI_DOUBLE, i, 20 + i, MPI_COMM_WORLD, &status);
+                MPI_Recv(&A[j], dimSubatrix, MPI_DOUBLE, i, 20 + i, MPI_COMM_WORLD, &status);
             }
+
             for (l = 0; l < dimSubatrix; l++)
             {
                 for (j = 0; j < dimSubatrix; j++)
-                    final[(j + p) * dimSubatrix + k] = A[j][l];
-
+                {
+                    printf("indice  %d\n", (j + p) * dimSubatrix + k);
+                    final[j * dimSubatrix + k + p] = A[j * dimSubatrix + l];
+                }
                 k++;
                 if (k == dimMat)
                     p = p + dimSubatrix;
@@ -305,9 +322,19 @@ void createResult(double *partial, double *final, int menum, int nproc, int dimM
     }
     else
     {
-        for (i = 0; i < dimSubatrix; i++)
-            MPI_Send(&partial[i], dimSubatrix, MPI_DOUBLE, 0, 20 + menum, MPI_COMM_WORLD);
+        for (i = 0; i < dimSubatrix * dimSubatrix; i++)
+            MPI_Send(&partial[0], dimSubatrix, MPI_DOUBLE, 0, 20 + menum, MPI_COMM_WORLD);
     }
+
+    // if (menum == 0)
+    // {
+    //     printf("final di %d:\n", menum);
+    //     for (i = 0; i < dimMat * dimMat; i++)
+    //     {
+    //         printf("%f ", final[i]);
+    //     }
+    //     printf("\n\n");
+    // }
 
     return;
 }

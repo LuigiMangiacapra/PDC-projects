@@ -94,13 +94,13 @@ int main(int argc, char *argv[])
         matrix_distribution(nproc, matrixA, submatrixA, displs, dimSubatrix, dimSubatrix * dimSubatrix, dimMat);
         matrix_distribution(nproc, MatrixB, submatrixB, displs, dimSubatrix, dimSubatrix * dimSubatrix, dimMat);
 
-        //if(menum == 0){
-            printf("Process %d received A_loc:  \n", menum);
-            print_matrix(submatrixA, dimSubatrix);
-            printf("\n\n");
-            printf("Process %d received B_loc:  \n", menum);
-            print_matrix(submatrixB, dimSubatrix);
-            printf("\n\n");
+        // if(menum == 0){
+        printf("Process %d received A_loc:  \n", menum);
+        print_matrix(submatrixA, dimSubatrix);
+        printf("\n\n");
+        printf("Process %d received B_loc:  \n", menum);
+        print_matrix(submatrixB, dimSubatrix);
+        printf("\n\n");
         //}
 
         startTime = MPI_Wtime();

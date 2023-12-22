@@ -101,25 +101,25 @@ int main(int argc, char **argv)
 
         startTime = MPI_Wtime();
         BMR(menum, dimSubMatrix, dimGrid, partialResult, A_loc, B_loc, coordinate, &comm_grid, &comm_grid_row, &comm_grid_col);
-        createResult(partialResult, C, menum, nproc, N, dimSubMatrix);
+        createResult(partialResult, C, menum, nproc, N, dimSubMatrix, displs);
         stopTime = MPI_Wtime();
 
         // Sincronizzazione per garantire che tutti i processi abbiano ricevuto i dati
         MPI_Barrier(comm_grid);
 
+        // printf("Process %d received A_loc:  \n", menum);
+        // print_matrix(A_loc, n_loc);
+        // printf("\n\n");
+        // printf("Process %d received B_loc:  \n", menum);
+        // print_matrix(B_loc, n_loc);
+        // printf("\n\n");
+
+        /*printf("Process %d results C_loc:  \n", menum);
+        print_matrix(C_loc, n_loc);
+        printf("\n\n");*/
         // Stampa in ordine sequenziale
         if (menum == 0)
         {
-            printf("\n");
-            /*printf("Process %d received A_loc:  \n", menum);
-            print_matrix(A_loc, n_loc);
-            printf("\n\n");
-            printf("Process %d received B_loc:  \n", menum);
-            print_matrix(B_loc, n_loc);
-            printf("\n\n");
-            printf("Process %d results C_loc:  \n", menum);
-            print_matrix(C_loc, n_loc);
-            printf("\n\n");*/
 
             printf("result:\n");
             for (int i = 0; i < N; i++)
