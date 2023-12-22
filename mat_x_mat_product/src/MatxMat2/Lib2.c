@@ -126,10 +126,11 @@ void matrix_distribution(int nproc, double **matrix, double **elements_loc, int 
     double *vect_matrix;
     double *vect_result;
 
-    vect_matrix = (double *)calloc(stride * stride, sizeof(double));
+    vect_matrix = (double *)calloc(block_size, sizeof(double));
     vect_result = (double *)calloc(dimSubatrix * dimSubatrix, sizeof(double));
 
     copy_in_vector(matrix, vect_matrix, stride);
+    copy_in_vector(elements_loc, vect_result, dimSubatrix);
 
     /*printf("Matrix\n");
     print_matrix(matrix, stride);
@@ -145,31 +146,40 @@ void matrix_distribution(int nproc, double **matrix, double **elements_loc, int 
     for (int i = 0; i < nproc; i++)
         s[i] = 1;
 
-    MPI_Scatterv(matrix, s, displs, block_Type, elements_loc, block_size, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+    MPI_Scatterv(vect_matrix, s, displs, block_Type, vect_result, block_size, MPI_DOUBLE, 0, MPI_COMM_WORLD);
 
     // free mpi types
     MPI_Type_free(&vectorType);
     MPI_Type_free(&block_Type);
 }
 
-// Funzione di inoltro ai processori di sottomatrici da parte del processore 0
-/*void distribute_matrix(int menum, int nproc, double **matrix, double **submatrix, int dimSubatrix, int dimGrid, int dimMat, MPI_Comm *comm_grid, displs)
-{    
-    printf("Inizio distribuzione\n");
-    //printf("Dopo offset\n");
-    //MPI_Barrier(*comm_grid);
+void localProduct(double **m1, double **m2, double **res, int colsM1, int rowsM2)
+{
+    int i, j, k;
 
-    if (menum == 0)
-        print_array(displs, nproc);
-
-    printf("Prima distribuzione\n");
-    printf("Dopo distribuzione\n");
-    //MPI_Barrier(*comm_grid);
-
-    //printf("(%d) sendcounts: [%d]\n", menum, dimSubatrix * dimSubatrix);
+    for (i = 0; i < rowsM2; i++)
+    {
+        for (j = 0; j < colsM1; j++)
+        {
+            for (k = 0; k < colsM1; k++)
+                res[i][j] += m1[i][k] * m2[k][j];
+        }
+    }
 
     return;
-}*/
+}
+
+void copyMatrix(double **m1, double **m2, int rowsM2, int colsM2)
+{
+    int i, j;
+    for (i = 0; i < rowsM2; i++)
+    {
+        for (j = 0; j < colsM2; j++)
+            m1[i][j] = m2[i][j]; // m1: risultato
+    }
+
+    return;
+}
 
 void BMR(int menum, int dimSubatrix, int dimGrid, double **partialResult, double **submatrixA, double **submatrixB, int *coordinate, MPI_Comm *grid, MPI_Comm *gridr, MPI_Comm *gridc)
 {
@@ -219,33 +229,7 @@ void BMR(int menum, int dimSubatrix, int dimGrid, double **partialResult, double
     }
 }
 
-void localProduct(double **m1, double **m2, double **res, int colsM1, int rowsM2)
-{
-    int i, j, k;
 
-    for (i = 0; i < rowsM2; i++)
-    {
-        for (j = 0; j < colsM1; j++)
-        {
-            for (k = 0; k < colsM1; k++)
-                res[i][j] += m1[i][k] * m2[k][j];
-        }
-    }
-
-    return;
-}
-
-void copyMatrix(double **m1, double **m2, int rowsM2, int colsM2)
-{
-    int i, j;
-    for (i = 0; i < rowsM2; i++)
-    {
-        for (j = 0; j < colsM2; j++)
-            m1[i][j] = m2[i][j]; // m1: risultato
-    }
-
-    return;
-}
 
 void createResult(double **partial, double **final, int menum, int nproc, int dimMat, int dimSubatrix)
 {

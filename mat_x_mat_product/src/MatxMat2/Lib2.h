@@ -17,8 +17,6 @@ void print_array(double *array, int size);
 
 void createGrid(MPI_Comm *grid, MPI_Comm *gridr, MPI_Comm *gridc, int menum, int nproc, int row, int colGrid, int *coordinate);
 
-//void distribute_matrix(int menum, int nproc, double **matrix, double **submatrix, int dimSubatrix, int dimGrid, int dimMat, MPI_Comm *comm_grid, displs);
-
 void matrix_distribution(int nproc, double **matrix, double **elements_loc, int *displs, int dimSubatrix, int block_size, int stride);
 
 void get_offset(int *displs, int dimGrid, int dimSubatrix, int dimMat);
