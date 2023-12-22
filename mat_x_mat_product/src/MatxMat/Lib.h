@@ -11,7 +11,7 @@ void fill_matrix(double *matrix, int N);
 
 void print_matrix(double *matrix, int N);
 
-void print_array(int *array, int size);
+void print_array(double *array, int size);
 
 void check_if_grid_can_be_created(int nproc);
 
@@ -27,9 +27,7 @@ void mat_product(double *A, double *B, double *C, int dim);
 
 void copyMatrix(double **m1, double *m2, int rowsM2, int colsM2);
 
-void localProduct(double **m1, double *m2, double *res, int colsM1, int rowsM2);
-
-void createResult(double *partial, double *final, int menum, int nproc, int dimMat, int dimSubatrix, int *displs);
+void localProduct(double **m1, double *m2, double *res, int colsM1, int rowsM2, int menum);
 
 void create_matrix(double ***matrix, int dim);
 

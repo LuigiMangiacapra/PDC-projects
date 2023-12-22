@@ -90,7 +90,7 @@ void fill_matrix(double *matrix, int N)
     for (int i = 0; i < N; i++)
     {
         for (int j = 0; j < N; j++)
-            matrix[index++] = 2;
+            matrix[index++] = rand() % 10 + 1;//2;
     }
 
     printf("---------------------------------------------\n--- \t\t Matrix \t\t  --- \n"
@@ -99,11 +99,11 @@ void fill_matrix(double *matrix, int N)
     printf("---------------------------------------------\n");
 }
 
-void print_array(int *array, int size)
+void print_array(double *array, int size)
 {
     printf("(0) displs: [ ");
     for (int i = 0; i < size; i++)
-        printf("%d ", array[i]);
+        printf("%2f ", array[i]);
     printf("]\n\n");
 }
 
@@ -136,21 +136,17 @@ void create_grid(MPI_Comm *griglia, MPI_Comm *grigliar, MPI_Comm *grigliac,
     return;
 }
 
-void get_offset(int *displs, int row_grid, int col_grid, int n_loc, int N)
-{
+void get_offset(int *displs, int row_grid, int col_grid, int n_loc, int N){
     int offset = 0;
 
-    for (int i = 0; i < row_grid; i++)
-    {
-        for (int j = 0; j < col_grid; j++)
-        {
+    for (int i = 0; i < row_grid; i++){
+        for (int j = 0; j < col_grid; j++){
             displs[i * col_grid + j] = i * N * n_loc + j * n_loc;
         }
     }
 }
 
-void matrix_distribution(int nproc, double *matrix, double *elements_loc, int *displs, int n_loc, int block_size, int stride)
-{
+void matrix_distribution(int nproc, double *matrix, double *elements_loc, int *displs, int n_loc, int block_size, int stride){
     MPI_Datatype vectorType, block_Type; // blocco
 
     MPI_Type_vector(n_loc, n_loc, stride, MPI_DOUBLE, &vectorType);
@@ -158,8 +154,7 @@ void matrix_distribution(int nproc, double *matrix, double *elements_loc, int *d
     MPI_Type_commit(&block_Type);
 
     int s[nproc];
-    for (int i = 0; i < nproc; i++)
-        s[i] = 1;
+    for (int i = 0; i < nproc; i++) s[i] = 1;
 
     MPI_Scatterv(matrix, s, displs, block_Type, elements_loc, block_size, MPI_DOUBLE, 0, MPI_COMM_WORLD);
 
@@ -168,48 +163,34 @@ void matrix_distribution(int nproc, double *matrix, double *elements_loc, int *d
     MPI_Type_free(&block_Type);
 }
 
-void mat_product(double *A, double *B, double *C, int dim)
-{
-    for (int i = 0; i < dim; i++)
-    {
-        for (int k = 0; k < dim; k++)
-        {
-            for (int j = 0; j < dim; j++)
-            {
+void mat_product(double *A, double *B, double *C, int dim){
+    for (int i = 0; i < dim; i++){
+        for (int k = 0; k < dim; k++){
+            for (int j = 0; j < dim; j++){
                 C[i * dim + k] += A[i * dim + j] * B[j * dim + k];
             }
         }
     }
 }
 
-void copyMatrix(double **m1, double *m2, int rowsM2, int colsM2)
-{
-    int i, j;
-    for (i = 0; i < rowsM2; i++)
-    {
-        for (j = 0; j < colsM2; j++)
+void copyMatrix(double **m1, double *m2, int rowsM2, int colsM2){
+    for (int i = 0; i < rowsM2; i++){
+        for (int j = 0; j < colsM2; j++)
             m1[i][j] = m2[i * colsM2 + j]; // m1: risultato
     }
-
-    return;
 }
 
-void localProduct(double **m1, double *m2, double *res, int colsM1, int rowsM2)
-{
-    int i, j, k;
-
-    for (i = 0; i < rowsM2; i++)
-    {
-        for (j = 0; j < colsM1; j++)
-        {
-            for (k = 0; k < colsM1; k++)
-                res[i * colsM1 + j] += m1[i][j] * m2[k * colsM1 + j];
+void localProduct(double **m1, double *m2, double *res, int colsM1, int rowsM2, int menum){
+    for (int i = 0; i < rowsM2; i++){
+        for (int j = 0; j < colsM1; j++){
+            for (int k = 0; k < colsM1; k++){
+                res[i * colsM1 + j] += m1[i][k] * m2[k * colsM1 + j];
+            }
         }
     }
 }
 
-void create_matrix(double ***matrix, int dim)
-{
+void create_matrix(double ***matrix, int dim){
     int i, j;
 
     // allocazione matrice
@@ -218,8 +199,7 @@ void create_matrix(double ***matrix, int dim)
         (*matrix)[i] = (double *)calloc(dim, sizeof(double));
 }
 
-void BMR(int menum, int dimSubatrix, int dimGrid, double *partialResult, double *submatrixA, double *submatrixB, int *coordinate, MPI_Comm *grid, MPI_Comm *gridr, MPI_Comm *gridc)
-{
+void BMR(int menum, int dimSubatrix, int dimGrid, double *partialResult, double *submatrixA, double *submatrixB, int *coordinate, MPI_Comm *grid, MPI_Comm *gridr, MPI_Comm *gridc){
     int step, tag, j, i, sender, menumRow, menumCol, senderCol, receiverCol;
     double **bufferA;
     MPI_Status status;
@@ -244,10 +224,13 @@ void BMR(int menum, int dimSubatrix, int dimGrid, double *partialResult, double 
         else
             sender = (coordinate[0] + step) % dimGrid;
 
-        for (j = 0; j < dimSubatrix; j++)
+        for (j = 0; j < dimSubatrix; j++){
             MPI_Bcast(bufferA[j], dimSubatrix, MPI_DOUBLE, sender, *gridr);
+        }
 
-        localProduct(bufferA, submatrixB, partialResult, dimSubatrix, dimSubatrix);
+        localProduct(bufferA, submatrixB, partialResult, dimSubatrix, dimSubatrix, menum);
+
+        sleep(1);
 
         if (menumCol - 1 < 0)
             receiverCol = (menumCol - 1) + dimGrid;
@@ -258,83 +241,8 @@ void BMR(int menum, int dimSubatrix, int dimGrid, double *partialResult, double 
             senderCol = (menumCol + 1) + dimGrid;
         else
             senderCol = (menumCol + 1) % dimGrid;
-        for (j = 0; j < dimSubatrix; j++)
-        {
-            MPI_Send(&submatrixB[j], dimSubatrix, MPI_DOUBLE, receiverCol, 20 + receiverCol, *gridc);
-            MPI_Recv(&submatrixB[j], dimSubatrix, MPI_DOUBLE, senderCol, 20 + menumCol, *gridc, &status);
-        }
+
+        MPI_Send(submatrixB, dimSubatrix * dimSubatrix, MPI_DOUBLE, receiverCol, 20 + receiverCol, *gridc);
+        MPI_Recv(submatrixB, dimSubatrix * dimSubatrix, MPI_DOUBLE, senderCol, 20 + menumCol, *gridc, &status);
     }
-}
-
-void createResult(double *partial, double *final, int menum, int nproc, int dimMat, int dimSubatrix, int *displs)
-{
-    int i, j, l, p, k;
-    MPI_Status status;
-    double *A;
-    MPI_Datatype vectorType, block_Type; // blocco
-
-    // printf("partial di %d:\n", menum);
-    // for (i = 0; i < dimSubatrix * dimSubatrix; i++)
-    // {
-    //     printf("%f ", partial[i]);
-    // }
-    // printf("\n\n");
-    int recvcount[4] = {4, 4, 4, 4};
-
-    initialize_matrix(&A, dimSubatrix);
-
-    MPI_Barrier(MPI_COMM_WORLD);
-
-    if (menum == 0)
-    {
-        for (i = 0; i < dimSubatrix; i++)
-        {
-            for (j = 0; j < dimSubatrix; j++)
-            {
-                final[i * dimSubatrix + j] = partial[i * dimSubatrix + j];
-            }
-        }
-
-        i = 1;
-        p = 0;
-
-        while (i < nproc)
-        {
-            k = (i * dimSubatrix) % dimMat;
-            for (j = 0; j < dimSubatrix * dimSubatrix; j++)
-            {
-                MPI_Recv(&A[j], dimSubatrix, MPI_DOUBLE, i, 20 + i, MPI_COMM_WORLD, &status);
-            }
-
-            for (l = 0; l < dimSubatrix; l++)
-            {
-                for (j = 0; j < dimSubatrix; j++)
-                {
-                    printf("indice  %d\n", (j + p) * dimSubatrix + k);
-                    final[j * dimSubatrix + k + p] = A[j * dimSubatrix + l];
-                }
-                k++;
-                if (k == dimMat)
-                    p = p + dimSubatrix;
-            }
-            ++i;
-        }
-    }
-    else
-    {
-        for (i = 0; i < dimSubatrix * dimSubatrix; i++)
-            MPI_Send(&partial[0], dimSubatrix, MPI_DOUBLE, 0, 20 + menum, MPI_COMM_WORLD);
-    }
-
-    // if (menum == 0)
-    // {
-    //     printf("final di %d:\n", menum);
-    //     for (i = 0; i < dimMat * dimMat; i++)
-    //     {
-    //         printf("%f ", final[i]);
-    //     }
-    //     printf("\n\n");
-    // }
-
-    return;
 }

@@ -118,18 +118,16 @@ int main(int argc, char **argv)
         print_matrix(C_loc, n_loc);
         printf("\n\n");*/
         // Stampa in ordine sequenziale
-        if (menum == 0)
-        {
-
-            printf("result:\n");
-            for (int i = 0; i < N; i++)
-            {
-                for (int j = 0; j < N; j++)
-                    printf("%.2lf ", C[i * N + j]);
-                printf("\n");
-            }
-            printf("\nTime: %lf seconds\n", stopTime - startTime);
-        }
+        // if (menum == 0){
+        //     printf("result:\n");
+        //     for (int i = 0; i < N; i++)
+        //     {
+        //         for (int j = 0; j < N; j++)
+        //             printf("%.2lf ", C[i * N + j]);
+        //         printf("\n");
+        //     }
+        //     printf("\nTime: %lf seconds\n", stopTime - startTime);
+        // }
 
         // deallocate memory
         if (menum == 0)
