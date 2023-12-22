@@ -56,18 +56,18 @@ void print_matrix(double *matrix, int N){
     for (int i = 0; i < N; i++){
         (i == 0) ? printf(" ") : printf("  ");
         for (int j = 0; j < N; j++){
-            // Calcola l'indice nell'array
+            // computes the index of the array
             int index = i * N + j;
 
             printf("%.2lf", matrix[index]);
 
-            // Aggiungi la virgola se non è l'ultimo elemento della riga
+            // adds the comma if it's not the last element of the row
             if (j < N - 1){
                 printf(", ");
             }
         }
 
-        // Aggiungi il punto e virgola se non è l'ultima riga
+        // adds the semicolon if it's not the last row
         if (i < N - 1){
             printf("\n");
         }
