@@ -10,6 +10,7 @@
 #include <math.h>
 #include "mpi.h"
 
+// reads the number of rows and columns of the matrix, because it's square the system reads only one argument
 void read_input(int argc, char **argv, int *N)
 {
     if (argc != 2)
@@ -31,7 +32,8 @@ void read_input(int argc, char **argv, int *N)
     }
 }
 
-void check_if_grid_can_be_created(int nproc){
+void check_if_grid_can_be_created(int nproc)
+{
     double root = sqrt(nproc);
 
     if (root != (int)root){
@@ -41,7 +43,8 @@ void check_if_grid_can_be_created(int nproc){
     }
 }
 
-void initialize_matrix(double **matrix, int N){
+void initialize_matrix(double **matrix, int N)
+{
     *matrix = (double *)calloc(N * N, sizeof(double));
 
     if (*matrix == NULL){
@@ -51,7 +54,8 @@ void initialize_matrix(double **matrix, int N){
     }
 }
 
-void print_matrix(double *matrix, int N){
+void print_matrix(double *matrix, int N)
+{
     printf("[");
     for (int i = 0; i < N; i++){
         (i == 0) ? printf(" ") : printf("  ");
@@ -62,7 +66,8 @@ void print_matrix(double *matrix, int N){
             printf("%.2lf", matrix[index]);
 
             // adds the comma if it's not the last element of the row
-            if (j < N - 1){
+            if (j < N - 1)
+            {
                 printf(", ");
             }
         }
@@ -75,12 +80,13 @@ void print_matrix(double *matrix, int N){
     printf(" ]\n");
 }
 
-void fill_matrix(double *matrix, int N){
+void fill_matrix(double *matrix, int N)
+{
     int index = 0;
 
     for (int i = 0; i < N; i++){
         for (int j = 0; j < N; j++)
-            matrix[index++] = rand() % 10 + 1;//2;
+            matrix[index++] = rand() % 10 + 1; // 2;
     }
 
     printf("---------------------------------------------\n--- \t\t Matrix \t\t  --- \n"
@@ -96,7 +102,9 @@ void print_array(double *array, int size){
     printf("]\n\n");
 }
 
-void create_grid(MPI_Comm *griglia, MPI_Comm *grigliar, MPI_Comm *grigliac, int menum, int nproc, int riga, int col, int *coordinate){
+void create_grid(MPI_Comm *griglia, MPI_Comm *grigliar, MPI_Comm *grigliac,
+                 int menum, int nproc, int riga, int col, int *coordinate)
+{
     int dim = 2, ndim[2], reorder, period[2], vc[2];
 
     ndim[0] = riga;
@@ -104,34 +112,38 @@ void create_grid(MPI_Comm *griglia, MPI_Comm *grigliar, MPI_Comm *grigliac, int 
     period[0] = period[1] = 0;
     reorder = 0;
 
-    // definizione griglia
+    // grid definition
     MPI_Cart_create(MPI_COMM_WORLD, dim, ndim, period, reorder, griglia);
 
-    // ciascun processo calcola le proprie coordinate
+    // each process calculates its own coordinates
     MPI_Cart_coords(*griglia, menum, 2, coordinate);
 
-    // divisione in righe del communicator
+    // division into rows of the communicator
     vc[0] = 0;
     vc[1] = 1;
     MPI_Cart_sub(*griglia, vc, grigliar);
 
-    // divisione in colonne del communicator
+    // division into columns of the communicator
     vc[0] = 1;
     vc[1] = 0;
     MPI_Cart_sub(*griglia, vc, grigliac);
 }
 
-void get_offset(int *displs, int row_grid, int col_grid, int n_loc, int N){
+// compute the offset for the distribution of the elements of the matrix
+void get_offset(int *displs, int row_grid, int col_grid, int n_loc, int N)
+{
     int offset = 0;
 
-    for (int i = 0; i < row_grid; i++){
-        for (int j = 0; j < col_grid; j++){
+    for (int i = 0; i < row_grid; i++)
+    {
+        for (int j = 0; j < col_grid; j++)
+        {
             displs[i * col_grid + j] = i * N * n_loc + j * n_loc;
         }
     }
 }
 
-void matrix_distribution(int nproc, double *matrix, double *elements_loc, int *displs, int n_loc, int stride){
+void matrix_distribution(int nproc, double *matrix, double *elements_loc, int *displs, int n_loc, int block_size, int stride){
     MPI_Datatype vectorType, block_Type; // blocco
 
     MPI_Type_vector(n_loc, n_loc, stride, MPI_DOUBLE, &vectorType);
@@ -139,7 +151,8 @@ void matrix_distribution(int nproc, double *matrix, double *elements_loc, int *d
     MPI_Type_commit(&block_Type);
 
     int s[nproc];
-    for (int i = 0; i < nproc; i++) s[i] = 1;
+    for (int i = 0; i < nproc; i++)
+        s[i] = 1;
 
     MPI_Scatterv(matrix, s, displs, block_Type, elements_loc, n_loc * n_loc, MPI_DOUBLE, 0, MPI_COMM_WORLD);
 
@@ -148,53 +161,74 @@ void matrix_distribution(int nproc, double *matrix, double *elements_loc, int *d
     MPI_Type_free(&block_Type);
 }
 
-void copyMatrix(double **dest, double *source, int size){
-    for (int i = 0; i < size; i++){
-        for (int j = 0; j < size; j++)
-            dest[i][j] = source[i * size + j]; 
+void mat_product(double *A, double *B, double *C, int dim){
+    for (int i = 0; i < dim; i++){
+        for (int k = 0; k < dim; k++){
+            for (int j = 0; j < dim; j++){
+                C[i * dim + k] += A[i * dim + j] * B[j * dim + k];
+            }
+        }
     }
 }
 
-void localProduct(double **A, double *B, double *res, int n_loc){
-    for (int i = 0; i < n_loc; i++){
-        for (int j = 0; j < n_loc; j++){
-            for (int k = 0; k < n_loc; k++){
-                res[i * n_loc + j] += A[i][k] * B[k * n_loc + j];
+void copyMatrix(double **m1, double *m2, int rowsM2, int colsM2){
+    for (int i = 0; i < rowsM2; i++){
+        for (int j = 0; j < colsM2; j++)
+            m1[i][j] = m2[i * colsM2 + j]; // m1: risultato
+    }
+}
+
+void localProduct(double **m1, double *m2, double *res, int colsM1, int rowsM2, int menum){
+    for (int i = 0; i < rowsM2; i++){
+        for (int j = 0; j < colsM1; j++){
+            for (int k = 0; k < colsM1; k++){
+                res[i * colsM1 + j] += m1[i][k] * m2[k * colsM1 + j];
             }
         }
     }
 }
 
 void create_matrix(double ***matrix, int dim){
-    // allocazione matrice 2D
+    int i, j;
+
+    // allocazione matrice
     *matrix = (double **)calloc(dim, sizeof(double *));
     for (int i = 0; i < dim; i++)
         (*matrix)[i] = (double *)calloc(dim, sizeof(double));
 }
 
-void BMR(int menum, int n_loc, int grid_dim, double *C_loc, double *A_loc, double *B_loc, int *coordinate, MPI_Comm *grid, MPI_Comm *gridr, MPI_Comm *gridc){
+void BMR(int menum, int dimSubatrix, int dimGrid, double *partialResult, double *submatrixA, double *submatrixB, int *coordinate, MPI_Comm *grid, MPI_Comm *gridr, MPI_Comm *gridc){
     int step, tag, j, i, sender, menumRow, menumCol, senderCol, receiverCol;
     double **bufferA;
     MPI_Status status;
-    create_matrix(&bufferA, n_loc);
+    create_matrix(&bufferA, dimSubatrix);
 
     MPI_Comm_rank(*gridc, &menumCol);
     MPI_Comm_rank(*gridr, &menumRow);
 
-    for (step = 0; step < grid_dim; step++){
-        if (coordinate[1] == (coordinate[0] + step) % grid_dim){
+    /*
+        Ad ogni step:
+         1. il processore sender invia la sottomatrice A agli altri processori sulla riga;
+         2. ogni processore moltiplica la sottomatrice A che ha ricevuto/copiato nel caso del step 0 (bufferA) per la sottomatrice B che possiede;
+         3. ogni processore riceve una sottomatrice B dal processore nella stessa colonna, nella riga successiva ed aggiorna la propria.
+    */
+    for (step = 0; step < dimGrid; step++)
+    {
+        if (coordinate[1] == (coordinate[0] + step) % dimGrid)
+        {
             sender = menumRow;
-            copyMatrix(bufferA, A_loc, n_loc);
+            copyMatrix(bufferA, submatrixA, dimSubatrix, dimSubatrix);
         }
         else
             sender = (coordinate[0] + step) % grid_dim;
 
-        for (j = 0; j < n_loc; j++){
-            MPI_Bcast(bufferA[j], n_loc, MPI_DOUBLE, sender, *gridr);
+        for (j = 0; j < dimSubatrix; j++){
+            MPI_Bcast(bufferA[j], dimSubatrix, MPI_DOUBLE, sender, *gridr);
         }
 
-        localProduct(bufferA, B_loc, C_loc, n_loc);
+        localProduct(bufferA, submatrixB, partialResult, dimSubatrix, dimSubatrix, menum);
 
+        sleep(1);
 
         if (menumCol - 1 < 0)
             receiverCol = (menumCol - 1) + grid_dim;
@@ -206,7 +240,23 @@ void BMR(int menum, int n_loc, int grid_dim, double *C_loc, double *A_loc, doubl
         else
             senderCol = (menumCol + 1) % grid_dim;
 
-        MPI_Send(B_loc, n_loc * n_loc, MPI_DOUBLE, receiverCol, 20 + receiverCol, *gridc);
-        MPI_Recv(B_loc, n_loc * n_loc, MPI_DOUBLE, senderCol, 20 + menumCol, *gridc, &status);
+        MPI_Send(submatrixB, dimSubatrix * dimSubatrix, MPI_DOUBLE, receiverCol, 20 + receiverCol, *gridc);
+        MPI_Recv(submatrixB, dimSubatrix * dimSubatrix, MPI_DOUBLE, senderCol, 20 + menumCol, *gridc, &status);
     }
+}
+
+// print the result
+void print_result(double *result, int menum, int nproc, int dimSubmatrix)
+{
+    int i;
+    printf("result for processor %d\n", menum);
+    for (i = 0; i < dimSubmatrix * dimSubmatrix; i++)
+    {
+        if (i == dimSubmatrix)
+            printf("\n");
+        printf("%.2lf ", result[i]);
+    }
+    printf("\n\n");
+
+    return;
 }
