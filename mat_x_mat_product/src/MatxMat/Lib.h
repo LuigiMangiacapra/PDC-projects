@@ -31,4 +31,6 @@ void localProduct(double **m1, double *m2, double *res, int colsM1, int rowsM2, 
 
 void create_matrix(double ***matrix, int dim);
 
+void print_result(double *result, int menum, int nproc, int dimSubmatrix);
+
 #endif
