@@ -36,7 +36,6 @@ void fill_matrix(double *matrix, int N);
  */
 void print_matrix(double *matrix, int N);
 
-<<<<<<< HEAD
 /**
  * @brief Prints the contents of an array.
  * 
@@ -44,9 +43,6 @@ void print_matrix(double *matrix, int N);
  * @param size Size of the array.
  */
 void print_array(double *array, int size);
-=======
-void print_array_displs(double *array, int size);
->>>>>>> 0cf8310f5c4461434e47d2a875adddddbce39ddb
 
 /**
  * @brief Checks if a grid can be created i.e if nproc is not a perfect square then the grid cannot be created.
@@ -80,7 +76,6 @@ void create_grid(MPI_Comm *griglia, MPI_Comm *grigliar, MPI_Comm *grigliac, int 
  */
 void get_offset(int *displs, int row_grid, int col_grid, int n_loc, int N);
 
-<<<<<<< HEAD
 /**
  * @brief Divides the matrix into equal subblocks. Each process will have one subblock.
  * 
@@ -122,11 +117,11 @@ void copyMatrix(double **dest, double *source, int size);
  * @brief Apply the product between matrix A and B and save it in res.
  * 
  * @param A matrix 2D.
- * @param B matrix !D.
+ * @param B matrix 1D.
  * @param res result matrix
- * @param n_loc Numer of elements for a row (resp. column).
+ * @param size Numer of elements for a row (resp. column).
  */
-void localProduct(double **A, double *B, double *res, int n_loc);
+void localProduct(double **A, double *B, double *res, int size);
 
 /**
  * @brief Create a 2D matrix object
@@ -134,18 +129,6 @@ void localProduct(double **A, double *B, double *res, int n_loc);
  * @param matrix Pointer to 2D matrix
  * @param dim Size matrix
  */
-=======
-void matrix_distribution(int nproc, double *matrix, double *elements_loc, int *displs, int n_loc, int block_size, int stride);
-
-void BMR(int menum, int dimSubatrix, int dimGrid, double *partialResult, double *submatrixA, double *submatrixB, int *coordinate, MPI_Comm *grid, MPI_Comm *gridr, MPI_Comm *gridc);
-
-void copyMatrix(double **m1, double *m2, int rowsM2, int colsM2);
-
-void localProduct(double **m1, double *m2, double *res, int colsM1, int rowsM2, int menum);
-
->>>>>>> 0cf8310f5c4461434e47d2a875adddddbce39ddb
 void create_matrix(double ***matrix, int dim);
-
-void print_result(double *result, int menum, int nproc, int dimSubmatrix);
 
 #endif
