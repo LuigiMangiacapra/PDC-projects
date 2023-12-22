@@ -26,7 +26,7 @@ void createMat(double ***matrix, int rows, int columns, bool fill)
                 (*matrix)[i][j] = (double)rand() / RAND_MAX * 150;
         }
     }
-
+    
     return;
 }
 
@@ -97,16 +97,17 @@ void get_offset(int *displs, int dimGrid, int dimSubMatrix, int dimMat)
     }
 }
 
-void print_array(int *array, int size)
+void print_array(double *array, int size)
 {
-    printf("(0) displs: [ ");
+    printf("array [ ");
     for (int i = 0; i < size; i++)
-        printf("%d ", array[i]);
+        printf("%.2lf ", array[i]);
     printf("]\n\n");
 }
 
 void copy_in_vector(double **matrix, double *vect, int dimMat)
-{
+{   
+
     for (int i = 0; i < dimMat; i++)
     {
         for (int j = 0; j < dimMat; j++)
@@ -119,11 +120,22 @@ void copy_in_vector(double **matrix, double *vect, int dimMat)
 }
 
 void matrix_distribution(int nproc, double **matrix, double **elements_loc, int *displs, int dimSubatrix, int block_size, int stride)
-{
-    MPI_Datatype vectorType, block_Type; // blocco
-    double *vect;
+{   
 
-    // copy_in_vector(matrix, &vect, stride);
+    MPI_Datatype vectorType, block_Type; // blocco
+    double *vect_matrix;
+    double *vect_result;
+
+    vect_matrix = (double *)calloc(stride * stride, sizeof(double));
+    vect_result = (double *)calloc(dimSubatrix * dimSubatrix, sizeof(double));
+
+    copy_in_vector(matrix, vect_matrix, stride);
+
+    /*printf("Matrix\n");
+    print_matrix(matrix, stride);
+
+    printf("Vettore:\n");
+    print_array(vect_matrix, stride*stride);*/
 
     MPI_Type_vector(dimSubatrix, dimSubatrix, stride, MPI_DOUBLE, &vectorType);
     MPI_Type_create_resized(vectorType, 0, sizeof(double), &block_Type);
@@ -133,7 +145,7 @@ void matrix_distribution(int nproc, double **matrix, double **elements_loc, int 
     for (int i = 0; i < nproc; i++)
         s[i] = 1;
 
-    MPI_Scatterv(vect, s, displs, block_Type, elements_loc, block_size, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+    MPI_Scatterv(matrix, s, displs, block_Type, elements_loc, block_size, MPI_DOUBLE, 0, MPI_COMM_WORLD);
 
     // free mpi types
     MPI_Type_free(&vectorType);
@@ -141,23 +153,23 @@ void matrix_distribution(int nproc, double **matrix, double **elements_loc, int 
 }
 
 // Funzione di inoltro ai processori di sottomatrici da parte del processore 0
-void distribute_matrix(int menum, int nproc, double **matrix, double **submatrix, int dimSubatrix, int dimGrid, int dimMat, MPI_Comm comm_grid, int *displs)
-{
-    get_offset(displs, dimGrid, dimSubatrix, dimMat);
-
-    MPI_Barrier(comm_grid);
+/*void distribute_matrix(int menum, int nproc, double **matrix, double **submatrix, int dimSubatrix, int dimGrid, int dimMat, MPI_Comm *comm_grid, displs)
+{    
+    printf("Inizio distribuzione\n");
+    //printf("Dopo offset\n");
+    //MPI_Barrier(*comm_grid);
 
     if (menum == 0)
         print_array(displs, nproc);
 
-    matrix_distribution(nproc, matrix, submatrix, displs, dimSubatrix, dimSubatrix * dimSubatrix, dimMat);
+    printf("Prima distribuzione\n");
+    printf("Dopo distribuzione\n");
+    //MPI_Barrier(*comm_grid);
 
-    MPI_Barrier(comm_grid);
-
-    // printf("(%d) sendcounts: [%d]\n", menum, dimSubatrix * dimSubatrix);
+    //printf("(%d) sendcounts: [%d]\n", menum, dimSubatrix * dimSubatrix);
 
     return;
-}
+}*/
 
 void BMR(int menum, int dimSubatrix, int dimGrid, double **partialResult, double **submatrixA, double **submatrixB, int *coordinate, MPI_Comm *grid, MPI_Comm *gridr, MPI_Comm *gridc)
 {

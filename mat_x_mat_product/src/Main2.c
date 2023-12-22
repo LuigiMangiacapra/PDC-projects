@@ -79,39 +79,47 @@ int main(int argc, char *argv[])
 
         dimSubatrix = dimMat / dimGrid;
 
+        createMat(&submatrixA, dimSubatrix, dimSubatrix, false);
+        createMat(&submatrixB, dimSubatrix, dimSubatrix, false);
+        createMat(&partialResult, dimSubatrix, dimSubatrix, false);
+
         coordinate = (int *)calloc(2, sizeof(int));
         createGrid(&grid, &gridr, &gridc, menum, nproc, dimGrid, dimGrid, coordinate);
 
-        createMat(&partialResult, dimSubatrix, dimSubatrix, false);
-        createMat(&submatrixA, dimSubatrix, dimSubatrix, false);
-        createMat(&submatrixB, dimSubatrix, dimSubatrix, false);
+        int *displs = malloc(sizeof(int) * dimGrid * dimGrid);
 
-        if (menum == 0)
-        {
-            int *displs = malloc(sizeof(int) * dimGrid * dimGrid);
+        get_offset(displs, dimGrid, dimSubatrix, dimMat);
 
-            // printf("Qui\n");
-            distribute_matrix(menum, nproc, matrixA, submatrixA, dimSubatrix, dimGrid, dimMat, grid, displs);
-            // printf("Qui 2\n");
-            distribute_matrix(menum, nproc, MatrixB, submatrixB, dimSubatrix, dimGrid, dimMat, grid, displs);
-        }
+        MPI_Barrier(grid);
+        matrix_distribution(nproc, matrixA, submatrixA, displs, dimSubatrix, dimSubatrix * dimSubatrix, dimMat);
+        matrix_distribution(nproc, MatrixB, submatrixB, displs, dimSubatrix, dimSubatrix * dimSubatrix, dimMat);
 
-        // printf("Qui 3\n");
-
-        printf("Process %d received A_loc:  \n", menum);
-        print_matrix(submatrixA, dimSubatrix);
-        printf("\n\n");
-        printf("Process %d received B_loc:  \n", menum);
-        print_matrix(submatrixB, dimSubatrix);
-        printf("\n\n");
+        //if(menum == 0){
+            printf("Process %d received A_loc:  \n", menum);
+            print_matrix(submatrixA, dimSubatrix);
+            printf("\n\n");
+            printf("Process %d received B_loc:  \n", menum);
+            print_matrix(submatrixB, dimSubatrix);
+            printf("\n\n");
+        //}
 
         startTime = MPI_Wtime();
         BMR(menum, dimSubatrix, dimGrid, partialResult, submatrixA, submatrixB, coordinate, &grid, &gridr, &gridc);
         createResult(partialResult, result, menum, nproc, dimMat, dimSubatrix);
         stopTime = MPI_Wtime();
 
+        MPI_Barrier(grid);
+
         if (menum == 0)
         {
+
+            /*printf("Process %d received A_loc:  \n", menum);
+            print_matrix(submatrixA, dimSubatrix);
+            printf("\n\n");
+            printf("Process %d received B_loc:  \n", menum);
+            print_matrix(submatrixB, dimSubatrix);
+            printf("\n\n");*/
+
             printf("result:\n");
             for (i = 0; i < dimMat; i++)
             {

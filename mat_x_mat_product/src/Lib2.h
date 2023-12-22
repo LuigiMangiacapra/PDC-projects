@@ -13,11 +13,11 @@ void createMat(double ***matrix, int rows, int columns, bool fill);
 
 void print_matrix(double **matrix, int dimMat);
 
-void print_array(int *array, int size);
+void print_array(double *array, int size);
 
 void createGrid(MPI_Comm *grid, MPI_Comm *gridr, MPI_Comm *gridc, int menum, int nproc, int row, int colGrid, int *coordinate);
 
-void distribute_matrix(int menum, int nproc, double **matrixA, double **submatrixA, int dimSubatrix, int dimGrid, int dimMat, MPI_Comm comm_grid, int *displs);
+//void distribute_matrix(int menum, int nproc, double **matrix, double **submatrix, int dimSubatrix, int dimGrid, int dimMat, MPI_Comm *comm_grid, displs);
 
 void matrix_distribution(int nproc, double **matrix, double **elements_loc, int *displs, int dimSubatrix, int block_size, int stride);
 
