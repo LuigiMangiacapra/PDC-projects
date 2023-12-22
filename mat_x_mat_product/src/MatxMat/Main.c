@@ -1,3 +1,9 @@
+/**
+ * @author Fabrizio Vitale
+ * @author Giovanni Falcone
+ * @author Luigi Mangiacapra
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -15,8 +21,8 @@ int main(int argc, char **argv)
     int dimGrid;           // number of rows and columns of the grid of processors
     int N;                 // number of rows and columns of the matrix of elements
     int *coordinate;       // coordinates of the grid
-    double *A_loc, *B_loc; // local matrixs of elements
-    double *A, *B;         // matrixs of elements provided as input
+    double *A_loc, *B_loc; // local matrices of elements
+    double *A, *B;         // matrices of elements provided as input
     double *partialResult; // matrix that contains the results
     int check;
     int dimSubMatrix;

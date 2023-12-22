@@ -11,7 +11,7 @@ void fill_matrix(double *matrix, int N);
 
 void print_matrix(double *matrix, int N);
 
-void print_array(double *array, int size);
+void print_array_displs(double *array, int size);
 
 void check_if_grid_can_be_created(int nproc);
 
@@ -22,8 +22,6 @@ void get_offset(int *displs, int row_grid, int col_grid, int n_loc, int N);
 void matrix_distribution(int nproc, double *matrix, double *elements_loc, int *displs, int n_loc, int block_size, int stride);
 
 void BMR(int menum, int dimSubatrix, int dimGrid, double *partialResult, double *submatrixA, double *submatrixB, int *coordinate, MPI_Comm *grid, MPI_Comm *gridr, MPI_Comm *gridc);
-
-void mat_product(double *A, double *B, double *C, int dim);
 
 void copyMatrix(double **m1, double *m2, int rowsM2, int colsM2);
 
