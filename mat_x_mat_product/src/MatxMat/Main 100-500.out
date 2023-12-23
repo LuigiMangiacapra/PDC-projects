@@ -1,0 +1,184 @@
+wn280.scope.unina.it
+wn280.scope.unina.it
+wn280.scope.unina.it
+wn280.scope.unina.it
+wn279.scope.unina.it
+wn279.scope.unina.it
+wn279.scope.unina.it
+wn279.scope.unina.it
+wn278.scope.unina.it
+wn278.scope.unina.it
+wn278.scope.unina.it
+wn278.scope.unina.it
+wn277.scope.unina.it
+wn277.scope.unina.it
+wn277.scope.unina.it
+wn277.scope.unina.it
+--------------------------
+--------------------------
+This job is allocated on 4 cpu(s) on host:
+wn277.scope.unina.it
+wn278.scope.unina.it
+wn279.scope.unina.it
+wn280.scope.unina.it
+--------------------------
+********************************************************************
+* ITERATION  1 	--- N =  100 						 *
+********************************************************************
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main.c /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Lib.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpiexec -machinefile hotlist -np 4 /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main
+
+Tempo impiegato per svolgere l'algoritmo: 0.011655 seconds
+********************************************************************
+* ITERATION  2 	--- N =  100 						 *
+********************************************************************
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main.c /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Lib.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpiexec -machinefile hotlist -np 4 /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main
+
+Tempo impiegato per svolgere l'algoritmo: 0.011642 seconds
+********************************************************************
+* ITERATION  3 	--- N =  100 						 *
+********************************************************************
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main.c /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Lib.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpiexec -machinefile hotlist -np 4 /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main
+
+Tempo impiegato per svolgere l'algoritmo: 0.011473 seconds
+********************************************************************
+* ITERATION  4 	--- N =  100 						 *
+********************************************************************
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main.c /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Lib.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpiexec -machinefile hotlist -np 4 /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main
+
+Tempo impiegato per svolgere l'algoritmo: 0.011715 seconds
+********************************************************************
+* ITERATION  5 	--- N =  100 						 *
+********************************************************************
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main.c /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Lib.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpiexec -machinefile hotlist -np 4 /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main
+
+Tempo impiegato per svolgere l'algoritmo: 0.011621 seconds
+********************************************************************
+* ITERATION  6 	--- N =  100 						 *
+********************************************************************
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main.c /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Lib.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpiexec -machinefile hotlist -np 4 /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main
+
+Tempo impiegato per svolgere l'algoritmo: 0.011603 seconds
+********************************************************************
+* ITERATION  7 	--- N =  100 						 *
+********************************************************************
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main.c /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Lib.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpiexec -machinefile hotlist -np 4 /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main
+
+Tempo impiegato per svolgere l'algoritmo: 0.011637 seconds
+********************************************************************
+* ITERATION  8 	--- N =  100 						 *
+********************************************************************
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main.c /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Lib.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpiexec -machinefile hotlist -np 4 /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main
+
+Tempo impiegato per svolgere l'algoritmo: 0.011774 seconds
+********************************************************************
+* ITERATION  9 	--- N =  100 						 *
+********************************************************************
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main.c /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Lib.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpiexec -machinefile hotlist -np 4 /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main
+
+Tempo impiegato per svolgere l'algoritmo: 0.011682 seconds
+********************************************************************
+* ITERATION  10 	--- N =  100 						 *
+********************************************************************
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main.c /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Lib.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpiexec -machinefile hotlist -np 4 /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main
+
+Tempo impiegato per svolgere l'algoritmo: 0.011712 seconds
+********************************************************************
+* ITERATION  1 	--- N =  500 						 *
+********************************************************************
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main.c /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Lib.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpiexec -machinefile hotlist -np 4 /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main
+
+Tempo impiegato per svolgere l'algoritmo: 0.534604 seconds
+********************************************************************
+* ITERATION  2 	--- N =  500 						 *
+********************************************************************
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main.c /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Lib.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpiexec -machinefile hotlist -np 4 /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main
+
+Tempo impiegato per svolgere l'algoritmo: 0.533539 seconds
+********************************************************************
+* ITERATION  3 	--- N =  500 						 *
+********************************************************************
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main.c /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Lib.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpiexec -machinefile hotlist -np 4 /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main
+
+Tempo impiegato per svolgere l'algoritmo: 0.532360 seconds
+********************************************************************
+* ITERATION  4 	--- N =  500 						 *
+********************************************************************
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main.c /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Lib.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpiexec -machinefile hotlist -np 4 /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main
+
+Tempo impiegato per svolgere l'algoritmo: 0.537156 seconds
+********************************************************************
+* ITERATION  5 	--- N =  500 						 *
+********************************************************************
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main.c /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Lib.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpiexec -machinefile hotlist -np 4 /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main
+
+Tempo impiegato per svolgere l'algoritmo: 0.534406 seconds
+********************************************************************
+* ITERATION  6 	--- N =  500 						 *
+********************************************************************
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main.c /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Lib.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpiexec -machinefile hotlist -np 4 /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main
+
+Tempo impiegato per svolgere l'algoritmo: 0.533895 seconds
+********************************************************************
+* ITERATION  7 	--- N =  500 						 *
+********************************************************************
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main.c /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Lib.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpiexec -machinefile hotlist -np 4 /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main
+
+Tempo impiegato per svolgere l'algoritmo: 0.532709 seconds
+********************************************************************
+* ITERATION  8 	--- N =  500 						 *
+********************************************************************
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main.c /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Lib.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpiexec -machinefile hotlist -np 4 /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main
+
+Tempo impiegato per svolgere l'algoritmo: 0.532685 seconds
+********************************************************************
+* ITERATION  9 	--- N =  500 						 *
+********************************************************************
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main.c /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Lib.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpiexec -machinefile hotlist -np 4 /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main
+
+Tempo impiegato per svolgere l'algoritmo: 0.535731 seconds
+********************************************************************
+* ITERATION  10 	--- N =  500 						 *
+********************************************************************
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main.c /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Lib.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpiexec -machinefile hotlist -np 4 /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main
+
+Tempo impiegato per svolgere l'algoritmo: 0.534010 seconds

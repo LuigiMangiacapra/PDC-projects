@@ -1,0 +1,216 @@
+wn280.scope.unina.it
+--------------------------
+--------------------------
+This job is allocated on 1 cpu(s) on host:
+wn280.scope.unina.it
+--------------------------
+********************************************************************
+* ITERATION  1	--- N =  100 						 *
+********************************************************************
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main1proc /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main1proc.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/-machinefile hotlist -np 1 /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main1proc
+Il tempo di esecuzione è stato: 1.190615e-02
+********************************************************************
+* ITERATION  2	--- N =  100 						 *
+********************************************************************
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main1proc /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main1proc.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/-machinefile hotlist -np 1 /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main1proc
+Il tempo di esecuzione è stato: 1.096320e-02
+********************************************************************
+* ITERATION  3	--- N =  100 						 *
+********************************************************************
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main1proc /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main1proc.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/-machinefile hotlist -np 1 /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main1proc
+Il tempo di esecuzione è stato: 1.105809e-02
+********************************************************************
+* ITERATION  4	--- N =  100 						 *
+********************************************************************
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main1proc /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main1proc.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/-machinefile hotlist -np 1 /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main1proc
+Il tempo di esecuzione è stato: 1.190591e-02
+********************************************************************
+* ITERATION  5	--- N =  100 						 *
+********************************************************************
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main1proc /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main1proc.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/-machinefile hotlist -np 1 /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main1proc
+Il tempo di esecuzione è stato: 1.191998e-02
+********************************************************************
+* ITERATION  6	--- N =  100 						 *
+********************************************************************
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main1proc /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main1proc.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/-machinefile hotlist -np 1 /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main1proc
+Il tempo di esecuzione è stato: 1.191306e-02
+********************************************************************
+* ITERATION  7	--- N =  100 						 *
+********************************************************************
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main1proc /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main1proc.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/-machinefile hotlist -np 1 /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main1proc
+Il tempo di esecuzione è stato: 1.192617e-02
+********************************************************************
+* ITERATION  8	--- N =  100 						 *
+********************************************************************
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main1proc /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main1proc.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/-machinefile hotlist -np 1 /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main1proc
+Il tempo di esecuzione è stato: 1.190495e-02
+********************************************************************
+* ITERATION  9	--- N =  100 						 *
+********************************************************************
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main1proc /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main1proc.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/-machinefile hotlist -np 1 /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main1proc
+Il tempo di esecuzione è stato: 1.168609e-02
+********************************************************************
+* ITERATION  10	--- N =  100 						 *
+********************************************************************
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main1proc /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main1proc.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/-machinefile hotlist -np 1 /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main1proc
+Il tempo di esecuzione è stato: 1.170421e-02
+********************************************************************
+* ITERATION  1	--- N =  500 						 *
+********************************************************************
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main1proc /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main1proc.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/-machinefile hotlist -np 1 /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main1proc
+Il tempo di esecuzione è stato: 1.467198e+00
+********************************************************************
+* ITERATION  2	--- N =  500 						 *
+********************************************************************
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main1proc /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main1proc.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/-machinefile hotlist -np 1 /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main1proc
+Il tempo di esecuzione è stato: 1.465302e+00
+********************************************************************
+* ITERATION  3	--- N =  500 						 *
+********************************************************************
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main1proc /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main1proc.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/-machinefile hotlist -np 1 /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main1proc
+Il tempo di esecuzione è stato: 1.467164e+00
+********************************************************************
+* ITERATION  4	--- N =  500 						 *
+********************************************************************
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main1proc /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main1proc.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/-machinefile hotlist -np 1 /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main1proc
+Il tempo di esecuzione è stato: 1.465655e+00
+********************************************************************
+* ITERATION  5	--- N =  500 						 *
+********************************************************************
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main1proc /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main1proc.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/-machinefile hotlist -np 1 /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main1proc
+Il tempo di esecuzione è stato: 1.466269e+00
+********************************************************************
+* ITERATION  6	--- N =  500 						 *
+********************************************************************
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main1proc /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main1proc.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/-machinefile hotlist -np 1 /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main1proc
+Il tempo di esecuzione è stato: 1.472749e+00
+********************************************************************
+* ITERATION  7	--- N =  500 						 *
+********************************************************************
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main1proc /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main1proc.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/-machinefile hotlist -np 1 /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main1proc
+Il tempo di esecuzione è stato: 1.462238e+00
+********************************************************************
+* ITERATION  8	--- N =  500 						 *
+********************************************************************
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main1proc /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main1proc.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/-machinefile hotlist -np 1 /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main1proc
+Il tempo di esecuzione è stato: 1.469395e+00
+********************************************************************
+* ITERATION  9	--- N =  500 						 *
+********************************************************************
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main1proc /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main1proc.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/-machinefile hotlist -np 1 /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main1proc
+Il tempo di esecuzione è stato: 1.470305e+00
+********************************************************************
+* ITERATION  10	--- N =  500 						 *
+********************************************************************
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main1proc /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main1proc.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/-machinefile hotlist -np 1 /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main1proc
+Il tempo di esecuzione è stato: 1.466950e+00
+********************************************************************
+* ITERATION  1	--- N =  1000 						 *
+********************************************************************
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main1proc /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main1proc.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/-machinefile hotlist -np 1 /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main1proc
+Il tempo di esecuzione è stato: 1.405452e+01
+********************************************************************
+* ITERATION  2	--- N =  1000 						 *
+********************************************************************
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main1proc /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main1proc.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/-machinefile hotlist -np 1 /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main1proc
+Il tempo di esecuzione è stato: 1.377244e+01
+********************************************************************
+* ITERATION  3	--- N =  1000 						 *
+********************************************************************
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main1proc /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main1proc.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/-machinefile hotlist -np 1 /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main1proc
+Il tempo di esecuzione è stato: 1.416935e+01
+********************************************************************
+* ITERATION  4	--- N =  1000 						 *
+********************************************************************
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main1proc /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main1proc.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/-machinefile hotlist -np 1 /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main1proc
+Il tempo di esecuzione è stato: 1.377154e+01
+********************************************************************
+* ITERATION  5	--- N =  1000 						 *
+********************************************************************
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main1proc /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main1proc.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/-machinefile hotlist -np 1 /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main1proc
+Il tempo di esecuzione è stato: 1.402327e+01
+********************************************************************
+* ITERATION  6	--- N =  1000 						 *
+********************************************************************
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main1proc /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main1proc.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/-machinefile hotlist -np 1 /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main1proc
+Il tempo di esecuzione è stato: 1.377362e+01
+********************************************************************
+* ITERATION  7	--- N =  1000 						 *
+********************************************************************
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main1proc /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main1proc.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/-machinefile hotlist -np 1 /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main1proc
+Il tempo di esecuzione è stato: 1.421127e+01
+********************************************************************
+* ITERATION  8	--- N =  1000 						 *
+********************************************************************
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main1proc /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main1proc.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/-machinefile hotlist -np 1 /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main1proc
+Il tempo di esecuzione è stato: 1.376472e+01
+********************************************************************
+* ITERATION  9	--- N =  1000 						 *
+********************************************************************
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main1proc /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main1proc.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/-machinefile hotlist -np 1 /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main1proc
+Il tempo di esecuzione è stato: 1.412304e+01
+********************************************************************
+* ITERATION  10	--- N =  1000 						 *
+********************************************************************
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main1proc /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main1proc.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/-machinefile hotlist -np 1 /homes/DMA/PDC/2024/VTLFRZ99P/ProgettoMatxMat/Main1proc
+Il tempo di esecuzione è stato: 1.374386e+01

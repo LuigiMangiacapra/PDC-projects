@@ -97,19 +97,26 @@ int main(int argc, char **argv)
     BMR(menum, n_loc, grid_dim, C_loc, A_loc, B_loc, coordinate, &comm_grid, &comm_grid_row, &comm_grid_col);
     stopTime = MPI_Wtime();
 
-    // in order to print in sequential way each result
     MPI_Barrier(comm_grid);
-    for (int i = 0; i < nproc; i++)
+
+    if (menum == 0)
     {
-        MPI_Barrier(comm_grid);
-        if (menum == i)
-        {
-            if (menum == 0)
-                printf("\n");
-            printf("result of P%d:\n", menum);
-            print_matrix(C_loc, n_loc);
-        }
+        printf("\nTempo impiegato per svolgere l'algoritmo: %lf seconds\n", stopTime - startTime);
     }
+
+    // in order to print in sequential way each result
+    // MPI_Barrier(comm_grid);
+    // for (int i = 0; i < nproc; i++)
+    // {
+    //     MPI_Barrier(comm_grid);
+    //     if (menum == i)
+    //     {
+    //         if (menum == 0)
+    //             printf("\n");
+    //         printf("result of P%d:\n", menum);
+    //         print_matrix(C_loc, n_loc);
+    //     }
+    // }
 
     // deallocate memory
     if (menum == 0)

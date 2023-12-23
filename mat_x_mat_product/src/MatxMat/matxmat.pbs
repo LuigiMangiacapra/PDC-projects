@@ -18,7 +18,7 @@ echo --------------------------
 
 PBS_O_WORKDIR=$PBS_O_HOME/ProgettoMatxMat
 
-for n in 100 1000 10000 100000
+for n in 100 
 do
 	for i in {1..10}
 	do
