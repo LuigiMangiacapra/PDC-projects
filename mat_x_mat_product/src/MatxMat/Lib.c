@@ -91,7 +91,7 @@ void fill_matrix(double *matrix, int N)
     for (int i = 0; i < N; i++)
     {
         for (int j = 0; j < N; j++)
-            matrix[index++] = rand() % 10 + 1; // 2;
+            matrix[index++] = ((double) rand() / RAND_MAX) * (100 - 1) + 1;
     }
 
     // printf("---------------------------------------------\n--- \t\t Matrix \t\t  --- \n"
