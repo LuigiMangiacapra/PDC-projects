@@ -16,13 +16,13 @@
 
 int main(int argc, char **argv)
 {
-    int menum;                     // id processo
-    int nproc;                     // numero di processi
-    int row_grid, col_grid;        // numero di righe e di colonne della griglia di processori
-    int N;                         // numero di righe e colonne della matrice di valori numerici
-    int *coordinate;               // coordinate griglia
-    double *A_loc, *B_loc, *C_loc; // matrice di elementi locale
-    double *A, *B;                 // matrice di elementi fornita in input
+    int menum;                       // id processo
+    int nproc;                       // numero di processi
+    int row_grid, col_grid, dimGrid; // numero di righe e di colonne della griglia di processori
+    int N;                           // numero di righe e colonne della matrice di valori numerici
+    int *coordinate;                 // coordinate griglia
+    double *A_loc, *B_loc, *C_loc;   // matrice di elementi locale
+    double *A, *B;                   // matrice di elementi fornita in input
     double startTime, stopTime;
     MPI_Comm comm_grid;                    // griglia
     MPI_Comm comm_grid_row, comm_grid_col; // sotto griglie
@@ -50,6 +50,8 @@ int main(int argc, char **argv)
         // if the grid cannot be created exit from program
         check_if_grid_can_be_created(nproc);
 
+        dimGrid = sqrt(nproc);
+
         // create and fill A matrix
         initialize_matrix(&A, N);
         fill_matrix(A, N);
@@ -60,13 +62,14 @@ int main(int argc, char **argv)
 
     // send data from process with rand 0 to all process
     MPI_Bcast(&N, 1, MPI_INT, 0, MPI_COMM_WORLD);
+    MPI_Bcast(&dimGrid, 1, MPI_INT, 0, MPI_COMM_WORLD);
 
     // compute column number of grid
-    col_grid = row_grid = sqrt(nproc);
+    col_grid = row_grid = dimGrid;
 
     // else create grid
-    const int grid_dim = 2;
-    coordinate = (int *)calloc(grid_dim, sizeof(int));
+    const int dim = 2;
+    coordinate = (int *)calloc(dim, sizeof(int));
     create_grid(&comm_grid, &comm_grid_row, &comm_grid_col, menum, nproc, row_grid, col_grid, coordinate);
 
     const int n_loc = N / row_grid; // number of rows of each process
@@ -94,7 +97,7 @@ int main(int argc, char **argv)
     // apply BMR strategy and get time
     MPI_Barrier(comm_grid);
     startTime = MPI_Wtime();
-    BMR(menum, n_loc, grid_dim, C_loc, A_loc, B_loc, coordinate, &comm_grid, &comm_grid_row, &comm_grid_col);
+    BMR(menum, n_loc, dimGrid, C_loc, A_loc, B_loc, coordinate, &comm_grid, &comm_grid_row, &comm_grid_col);
     stopTime = MPI_Wtime();
 
     MPI_Barrier(comm_grid);
