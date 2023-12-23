@@ -16,16 +16,16 @@
 
 int main(int argc, char **argv)
 {
-    int menum;                              // id processo
-    int nproc;                              // numero di processi
-    int row_grid, col_grid;                 // numero di righe e di colonne della griglia di processori
-    int N;                                  // numero di righe e colonne della matrice di valori numerici
-    int *coordinate;                        // coordinate griglia
-    double *A_loc, *B_loc, *C_loc;          // matrice di elementi locale
-    double *A, *B;                          // matrice di elementi fornita in input
+    int menum;                     // id processo
+    int nproc;                     // numero di processi
+    int row_grid, col_grid;        // numero di righe e di colonne della griglia di processori
+    int N;                         // numero di righe e colonne della matrice di valori numerici
+    int *coordinate;               // coordinate griglia
+    double *A_loc, *B_loc, *C_loc; // matrice di elementi locale
+    double *A, *B;                 // matrice di elementi fornita in input
     double startTime, stopTime;
-    MPI_Comm comm_grid;                     // griglia
-    MPI_Comm comm_grid_row, comm_grid_col;  // sotto griglie
+    MPI_Comm comm_grid;                    // griglia
+    MPI_Comm comm_grid_row, comm_grid_col; // sotto griglie
 
     MPI_Init(&argc, &argv);
     MPI_Comm_rank(MPI_COMM_WORLD, &menum);
@@ -33,13 +33,15 @@ int main(int argc, char **argv)
 
     srand(time(NULL));
     // get input data and initialize the matrix
-    if (menum == 0){
+    if (menum == 0)
+    {
         read_input(argc, argv, &N);
 
         // exit if matrix cannot be divided equally
         const int rest = N % nproc;
         const int is_there_a_rest = rest != 0;
-        if(is_there_a_rest){
+        if (is_there_a_rest)
+        {
             fprintf(stderr, "Matrix size cannot be divided equally!\n");
             MPI_Abort(MPI_COMM_WORLD, EXIT_FAILURE);
             exit(EXIT_FAILURE);
@@ -67,9 +69,9 @@ int main(int argc, char **argv)
     coordinate = (int *)calloc(grid_dim, sizeof(int));
     create_grid(&comm_grid, &comm_grid_row, &comm_grid_col, menum, nproc, row_grid, col_grid, coordinate);
 
-    const int n_loc = N / row_grid;            // number of rows of each process
-    const int stride = N;                      // movement between one cell and another
-    
+    const int n_loc = N / row_grid; // number of rows of each process
+    const int stride = N;           // movement between one cell and another
+
     // defination of displs for MPI_Scatterv
     int *displs = malloc(sizeof(int) * row_grid * col_grid);
     // compute offset in order to understand where to start from matrix to send a block
@@ -79,7 +81,8 @@ int main(int argc, char **argv)
     A_loc = (double *)calloc(n_loc * n_loc, sizeof(double));
     B_loc = (double *)calloc(n_loc * n_loc, sizeof(double));
     C_loc = (double *)calloc(n_loc * n_loc, sizeof(double));
-    if (A_loc == NULL || B_loc == NULL || C_loc == NULL){
+    if (A_loc == NULL || B_loc == NULL || C_loc == NULL)
+    {
         fprintf(stderr, "Error allocating memory for the local matrix!\n");
         MPI_Finalize();
         return EXIT_FAILURE;
@@ -94,23 +97,27 @@ int main(int argc, char **argv)
     BMR(menum, n_loc, grid_dim, C_loc, A_loc, B_loc, coordinate, &comm_grid, &comm_grid_row, &comm_grid_col);
     stopTime = MPI_Wtime();
 
-    // in order to print in sequential way each partial result
+    // in order to print in sequential way each result
     MPI_Barrier(comm_grid);
-    for (int i = 0; i < nproc; i++) {
+    for (int i = 0; i < nproc; i++)
+    {
         MPI_Barrier(comm_grid);
-        if (menum == i) {
-            if(menum == 0) printf("\n");
-            printf("Partial result of P%d:\n", menum);
+        if (menum == i)
+        {
+            if (menum == 0)
+                printf("\n");
+            printf("result of P%d:\n", menum);
             print_matrix(C_loc, n_loc);
         }
     }
 
     // deallocate memory
-    if (menum == 0){
+    if (menum == 0)
+    {
         free(A);
         free(B);
     }
-    
+
     free(displs);
     free(A_loc);
     free(B_loc);
