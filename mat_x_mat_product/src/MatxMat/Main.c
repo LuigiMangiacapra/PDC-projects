@@ -37,8 +37,10 @@ int main(int argc, char **argv)
     {
         read_input(argc, argv, &N);
 
+        // get dim grid
+        dimGrid = sqrt(nproc);
         // exit if matrix cannot be divided equally
-        const int rest = N % nproc;
+        const int rest = N % dimGrid;
         const int is_there_a_rest = rest != 0;
         if (is_there_a_rest)
         {
@@ -49,8 +51,6 @@ int main(int argc, char **argv)
 
         // if the grid cannot be created exit from program
         check_if_grid_can_be_created(nproc);
-
-        dimGrid = sqrt(nproc);
 
         // create and fill A matrix
         initialize_matrix(&A, N);
