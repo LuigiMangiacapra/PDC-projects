@@ -102,10 +102,12 @@ int main(int argc, char **argv)
 
     MPI_Barrier(comm_grid);
 
-    if (menum == 0)
-    {
-        printf("\nTempo impiegato per svolgere l'algoritmo: %lf seconds\n", stopTime - startTime);
-    }
+    // compute total time
+    double timetot;
+    double timeP = stopTime - startTime;
+    MPI_Reduce(&timeP, &timetot, 1, MPI_DOUBLE, MPI_MAX, 0, MPI_COMM_WORLD);
+    // print total time
+    if(menum == 0) printf("\nTempo impiegato per svolgere l'algoritmo: %lf seconds\n", timetot);
 
     // in order to print in sequential way each result
     // MPI_Barrier(comm_grid);
