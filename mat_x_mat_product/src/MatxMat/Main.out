@@ -1,0 +1,304 @@
+wn280.scope.unina.it
+wn280.scope.unina.it
+wn280.scope.unina.it
+wn280.scope.unina.it
+wn279.scope.unina.it
+wn279.scope.unina.it
+wn279.scope.unina.it
+wn279.scope.unina.it
+wn278.scope.unina.it
+wn278.scope.unina.it
+wn278.scope.unina.it
+wn278.scope.unina.it
+wn277.scope.unina.it
+wn277.scope.unina.it
+wn277.scope.unina.it
+wn277.scope.unina.it
+--------------------------
+--------------------------
+This job is allocated on 4 cpu(s) on host:
+wn277.scope.unina.it
+wn278.scope.unina.it
+wn279.scope.unina.it
+wn280.scope.unina.it
+--------------------------
+********************************************************************
+* ITERATION  1	--- N =  100 						 *
+********************************************************************
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main.c /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Lib.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/-machinefile hotlist -np 4 /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main
+Il tempo impiegato per svolgere l'algoritmo 0.012014.
+********************************************************************
+* ITERATION  2	--- N =  100 						 *
+********************************************************************
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main.c /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Lib.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/-machinefile hotlist -np 4 /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main
+Il tempo impiegato per svolgere l'algoritmo 0.011640.
+********************************************************************
+* ITERATION  3	--- N =  100 						 *
+********************************************************************
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main.c /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Lib.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/-machinefile hotlist -np 4 /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main
+Il tempo impiegato per svolgere l'algoritmo 0.011639.
+********************************************************************
+* ITERATION  4	--- N =  100 						 *
+********************************************************************
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main.c /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Lib.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/-machinefile hotlist -np 4 /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main
+Il tempo impiegato per svolgere l'algoritmo 0.011646.
+********************************************************************
+* ITERATION  5	--- N =  100 						 *
+********************************************************************
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main.c /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Lib.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/-machinefile hotlist -np 4 /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main
+Il tempo impiegato per svolgere l'algoritmo 0.011699.
+********************************************************************
+* ITERATION  6	--- N =  100 						 *
+********************************************************************
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main.c /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Lib.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/-machinefile hotlist -np 4 /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main
+Il tempo impiegato per svolgere l'algoritmo 0.011632.
+********************************************************************
+* ITERATION  7	--- N =  100 						 *
+********************************************************************
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main.c /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Lib.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/-machinefile hotlist -np 4 /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main
+Il tempo impiegato per svolgere l'algoritmo 0.011616.
+********************************************************************
+* ITERATION  8	--- N =  100 						 *
+********************************************************************
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main.c /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Lib.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/-machinefile hotlist -np 4 /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main
+Il tempo impiegato per svolgere l'algoritmo 0.011679.
+********************************************************************
+* ITERATION  9	--- N =  100 						 *
+********************************************************************
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main.c /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Lib.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/-machinefile hotlist -np 4 /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main
+Il tempo impiegato per svolgere l'algoritmo 0.011641.
+********************************************************************
+* ITERATION  10	--- N =  100 						 *
+********************************************************************
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main.c /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Lib.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/-machinefile hotlist -np 4 /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main
+Il tempo impiegato per svolgere l'algoritmo 0.011708.
+********************************************************************
+* ITERATION  1	--- N =  500 						 *
+********************************************************************
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main.c /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Lib.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/-machinefile hotlist -np 4 /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main
+Il tempo impiegato per svolgere l'algoritmo 0.535740.
+********************************************************************
+* ITERATION  2	--- N =  500 						 *
+********************************************************************
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main.c /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Lib.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/-machinefile hotlist -np 4 /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main
+Il tempo impiegato per svolgere l'algoritmo 0.538902.
+********************************************************************
+* ITERATION  3	--- N =  500 						 *
+********************************************************************
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main.c /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Lib.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/-machinefile hotlist -np 4 /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main
+Il tempo impiegato per svolgere l'algoritmo 0.532983.
+********************************************************************
+* ITERATION  4	--- N =  500 						 *
+********************************************************************
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main.c /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Lib.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/-machinefile hotlist -np 4 /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main
+Il tempo impiegato per svolgere l'algoritmo 0.532853.
+********************************************************************
+* ITERATION  5	--- N =  500 						 *
+********************************************************************
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main.c /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Lib.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/-machinefile hotlist -np 4 /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main
+Il tempo impiegato per svolgere l'algoritmo 0.532972.
+********************************************************************
+* ITERATION  6	--- N =  500 						 *
+********************************************************************
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main.c /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Lib.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/-machinefile hotlist -np 4 /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main
+Il tempo impiegato per svolgere l'algoritmo 0.532777.
+********************************************************************
+* ITERATION  7	--- N =  500 						 *
+********************************************************************
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main.c /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Lib.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/-machinefile hotlist -np 4 /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main
+Il tempo impiegato per svolgere l'algoritmo 0.534231.
+********************************************************************
+* ITERATION  8	--- N =  500 						 *
+********************************************************************
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main.c /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Lib.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/-machinefile hotlist -np 4 /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main
+Il tempo impiegato per svolgere l'algoritmo 0.533562.
+********************************************************************
+* ITERATION  9	--- N =  500 						 *
+********************************************************************
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main.c /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Lib.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/-machinefile hotlist -np 4 /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main
+Il tempo impiegato per svolgere l'algoritmo 0.534631.
+********************************************************************
+* ITERATION  10	--- N =  500 						 *
+********************************************************************
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main.c /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Lib.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/-machinefile hotlist -np 4 /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main
+Il tempo impiegato per svolgere l'algoritmo 0.533500.
+********************************************************************
+* ITERATION  1	--- N =  800 						 *
+********************************************************************
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main.c /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Lib.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/-machinefile hotlist -np 4 /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main
+Il tempo impiegato per svolgere l'algoritmo 2.456495.
+********************************************************************
+* ITERATION  2	--- N =  800 						 *
+********************************************************************
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main.c /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Lib.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/-machinefile hotlist -np 4 /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main
+Il tempo impiegato per svolgere l'algoritmo 2.472614.
+********************************************************************
+* ITERATION  3	--- N =  800 						 *
+********************************************************************
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main.c /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Lib.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/-machinefile hotlist -np 4 /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main
+Il tempo impiegato per svolgere l'algoritmo 2.450653.
+********************************************************************
+* ITERATION  4	--- N =  800 						 *
+********************************************************************
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main.c /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Lib.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/-machinefile hotlist -np 4 /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main
+Il tempo impiegato per svolgere l'algoritmo 2.476957.
+********************************************************************
+* ITERATION  5	--- N =  800 						 *
+********************************************************************
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main.c /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Lib.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/-machinefile hotlist -np 4 /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main
+Il tempo impiegato per svolgere l'algoritmo 2.422084.
+********************************************************************
+* ITERATION  6	--- N =  800 						 *
+********************************************************************
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main.c /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Lib.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/-machinefile hotlist -np 4 /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main
+Il tempo impiegato per svolgere l'algoritmo 2.459333.
+********************************************************************
+* ITERATION  7	--- N =  800 						 *
+********************************************************************
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main.c /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Lib.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/-machinefile hotlist -np 4 /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main
+Il tempo impiegato per svolgere l'algoritmo 2.457622.
+********************************************************************
+* ITERATION  8	--- N =  800 						 *
+********************************************************************
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main.c /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Lib.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/-machinefile hotlist -np 4 /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main
+Il tempo impiegato per svolgere l'algoritmo 2.474622.
+********************************************************************
+* ITERATION  9	--- N =  800 						 *
+********************************************************************
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main.c /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Lib.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/-machinefile hotlist -np 4 /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main
+Il tempo impiegato per svolgere l'algoritmo 2.437597.
+********************************************************************
+* ITERATION  10	--- N =  800 						 *
+********************************************************************
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main.c /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Lib.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/-machinefile hotlist -np 4 /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main
+Il tempo impiegato per svolgere l'algoritmo 2.455658.
+********************************************************************
+* ITERATION  1	--- N =  1000 						 *
+********************************************************************
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main.c /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Lib.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/-machinefile hotlist -np 4 /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main
+Il tempo impiegato per svolgere l'algoritmo 4.484400.
+********************************************************************
+* ITERATION  2	--- N =  1000 						 *
+********************************************************************
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main.c /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Lib.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/-machinefile hotlist -np 4 /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main
+Il tempo impiegato per svolgere l'algoritmo 4.533177.
+********************************************************************
+* ITERATION  3	--- N =  1000 						 *
+********************************************************************
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main.c /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Lib.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/-machinefile hotlist -np 4 /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main
+Il tempo impiegato per svolgere l'algoritmo 4.500911.
+********************************************************************
+* ITERATION  4	--- N =  1000 						 *
+********************************************************************
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main.c /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Lib.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/-machinefile hotlist -np 4 /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main
+Il tempo impiegato per svolgere l'algoritmo 4.484229.
+********************************************************************
+* ITERATION  5	--- N =  1000 						 *
+********************************************************************
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main.c /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Lib.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/-machinefile hotlist -np 4 /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main
+Il tempo impiegato per svolgere l'algoritmo 4.512730.
+********************************************************************
+* ITERATION  6	--- N =  1000 						 *
+********************************************************************
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main.c /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Lib.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/-machinefile hotlist -np 4 /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main
+Il tempo impiegato per svolgere l'algoritmo 4.528573.
+********************************************************************
+* ITERATION  7	--- N =  1000 						 *
+********************************************************************
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main.c /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Lib.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/-machinefile hotlist -np 4 /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main
+Il tempo impiegato per svolgere l'algoritmo 4.518036.
+********************************************************************
+* ITERATION  8	--- N =  1000 						 *
+********************************************************************
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main.c /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Lib.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/-machinefile hotlist -np 4 /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main
+Il tempo impiegato per svolgere l'algoritmo 4.505378.
+********************************************************************
+* ITERATION  9	--- N =  1000 						 *
+********************************************************************
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main.c /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Lib.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/-machinefile hotlist -np 4 /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main
+Il tempo impiegato per svolgere l'algoritmo 4.473488.
+********************************************************************
+* ITERATION  10	--- N =  1000 						 *
+********************************************************************
+-------------------------
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main.c /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Lib.c
+Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/-machinefile hotlist -np 4 /homes/DMA/PDC/2024/FLCGNN97K/ProgettoMatMat/Main
+Il tempo impiegato per svolgere l'algoritmo 4.507233.
