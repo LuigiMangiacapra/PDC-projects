@@ -1,0 +1,36 @@
+#!/bin/bash
+
+#PBS -q studenti
+#PBS -l nodes=1:ppn=1
+#PBS -N sequential
+#PBS -o Main1proc.out
+#PBS -e Main1proc.err
+
+cat $PBS_NODEFILE
+echo --------------------------
+sort -u $PBS_NODEFILE > hostlist
+
+NCPU=$(wc -l < hostlist)
+echo --------------------------
+echo 'This job is allocated on '${NCPU}' cpu(s)'' on host:'
+cat hostlist
+echo --------------------------
+
+PBS_O_WORKDIR=$PBS_O_HOME/ProgettoMatxMat
+
+for n in 100 500 800 10000
+do
+	for i in {1..10}
+	do
+		echo "********************************************************************"
+		echo "* ITERATION " $i"	--- N = " $n "						 *"
+		echo "********************************************************************"
+
+		echo -------------------------
+		echo "Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/mpicc -o $PBS_O_WORKDIR/sequential $PBS_O_WORKDIR/sequential.c"
+		/usr/lib64/openmpi/1.4-gcc/bin/mpicc -o $PBS_O_WORKDIR/sequential $PBS_O_WORKDIR/sequential.c -lm -std=c99
+
+		echo "Eseguo: /usr/lib64/openmpi/1.4-gcc/bin/-machinefile hotlist -np $NCPU $PBS_O_WORKDIR/sequential"
+		/usr/lib64/openmpi/1.4-gcc/bin/mpiexec -machinefile hostlist -np $NCPU $PBS_O_WORKDIR/sequential $n
+	done
+done
